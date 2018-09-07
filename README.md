@@ -1,5 +1,7 @@
 # Kyber Workshop
 
+This repository is used in complement to the workshops conducted by Kyber. It can also be used to quickly test the Kyber contracts in your local machine.
+
 ## Useful Links
 1. [Slides](https://docs.google.com/presentation/d/1J09swm1NDGwmtvOrw5MpQLlgpagKcLfNDV8YvL6UQso/edit?ts=5b8cfd89#slide=id.g414af8a3aa_2_66)
 2. [KyberDeveloper Portal](http://developer.kyber.network)
