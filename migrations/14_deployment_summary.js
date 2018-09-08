@@ -14,6 +14,7 @@ const ExpectedRate = artifacts.require('./ExpectedRate.sol');
 const SwapEtherToToken = artifacts.require('./examples/SwapEtherToToken.sol');
 const SwapTokenToEther = artifacts.require('./examples/SwapTokenToEther.sol');
 const SwapTokenToToken = artifacts.require('./examples/SwapTokenToToken.sol');
+const Trade = artifacts.require('./examples/Trade.sol');
 
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const OMG = artifacts.require('./mockTokens/OmiseGo.sol');
@@ -72,4 +73,5 @@ module.exports = (deployer, network, accounts) => {
   console.log(`(SwapEtherToToken) ${SwapEtherToToken.address}`);
   console.log(`(SwapTokenToEther) ${SwapTokenToEther.address}`);
   console.log(`(SwapTokenToToken) ${SwapTokenToToken.address}`);
+  console.log(`(Trade) ${Trade.address}`);
 };

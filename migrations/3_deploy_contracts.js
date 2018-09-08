@@ -13,6 +13,7 @@ const KGT = artifacts.require('./mockTokens/KyberGenesisToken.sol');
 const SwapEtherToToken = artifacts.require('./examples/SwapEtherToToken.sol');
 const SwapTokenToEther = artifacts.require('./examples/SwapTokenToEther.sol');
 const SwapTokenToToken = artifacts.require('./examples/SwapTokenToToken.sol');
+const Trade = artifacts.require('./examples/Trade.sol');
 
 module.exports = async (deployer, network, accounts) => {
   const admin = accounts[0];
@@ -31,4 +32,5 @@ module.exports = async (deployer, network, accounts) => {
   await deployer.deploy(SwapEtherToToken, NetworkProxy.address);
   await deployer.deploy(SwapTokenToEther, NetworkProxy.address);
   await deployer.deploy(SwapTokenToToken, NetworkProxy.address);
+  await deployer.deploy(Trade, NetworkProxy.address);
 };

@@ -22,7 +22,7 @@ contract SwapEtherToToken {
         uint minConversionRate;
 
         // Get the minimum conversion rate
-        (, minConversionRate) = proxy.getExpectedRate(ETH_TOKEN_ADDRESS, token, msg.value);
+        (minConversionRate,) = proxy.getExpectedRate(ETH_TOKEN_ADDRESS, token, msg.value);
 
         // Swap the ETH to ERC20 token
         uint destAmount = proxy.swapEtherToToken.value(msg.value)(token, minConversionRate);

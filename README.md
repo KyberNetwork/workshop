@@ -1,15 +1,42 @@
 # Kyber Workshop
 
-This repository is used in complement to the workshops conducted by Kyber. It can also be used to quickly test the Kyber contracts in your local machine.
+This repository is used as complement to the workshops conducted by Kyber. It can also be used to quickly test the Kyber contracts in your local machine.
 
 ## Useful Links
+
 1. [Slides](https://docs.google.com/presentation/d/1J09swm1NDGwmtvOrw5MpQLlgpagKcLfNDV8YvL6UQso/edit?ts=5b8cfd89#slide=id.g414af8a3aa_2_66)
 2. [KyberDeveloper Portal](http://developer.kyber.network)
-3. [Workshop Repository](https://github.com/KyberNetwork/workshop)
-4. Ropsten ETH Faucets
+3. [KyberDeveloper Telegram](https://t.me/KyberDeveloper)
+4. [Workshop Repository](https://github.com/KyberNetwork/workshop)
+5. Ropsten ETH Faucets
     - https://faucet.kyber.network
     - https://faucet.ropsten.be
-5. [Ropsten Swap](https://ropsten.kyber.network)
+6. [Ropsten Swap](https://ropsten.kyber.network)
+
+## Prerequisites
+
+1. Ganache
+
+Install the Ganache AppImage by downloading here https://truffleframework.com/ganache.
+To use the provided Ganache snapshot, install `ganache-cli`.
+
+```
+sudo npm install -g ganache-cli
+```
+
+2. Truffle
+
+Install the latest Truffle v5 beta.
+
+```
+sudo npm install -g truffle@beta
+```
+
+3. Install the rest of the NPM packages
+
+```
+npm install
+```
 
 ## Workshop Repository
 
@@ -54,6 +81,7 @@ workshop<br />
 │   ├── WhiteListInterface.sol<br />
 │   ├── WhiteList.sol<br />
 │   └── Withdrawable.sol<br />
+├── db<br />
 ├── examples<br />
 │   ├── solidity<br />
 │   │   ├── SwapEtherToToken.sol -> ../../contracts/examples/SwapEtherToToken.sol<br />
@@ -72,7 +100,6 @@ workshop<br />
 │       │   ├── OMG.abi<br />
 │       │   ├── SALT.abi<br />
 │       │   └── ZIL.abi<br />
-│       ├── ex.js<br />
 │       ├── getExpectedRate.js<br />
 │       ├── swapEtherToToken.js<br />
 │       ├── swapTokenToEther.js<br />
@@ -100,10 +127,10 @@ workshop<br />
 
 ### Directory Details
 
-*config* - contains JSON files that hold configuration details of the Kyber contracts used for migrations<br />
-*contracts* - contains all the Kyber contracts, plus some mock tokens and solidity examples for testing<br />
-*examples* - contains truffle and web3 example scripts to interact with Kyber's smart contracts, and also contains solidity examples for Kyber contract interactions<br />
-*migrations* - contains the truffle migration scripts to deploy and setup the Kyber contracts in a test environment
+**config** - contains JSON files that hold configuration details of the Kyber contracts used for migrations<br />
+**contracts** - contains all the Kyber contracts, plus some mock tokens and solidity examples for testing<br />
+**examples** - contains truffle and web3 example scripts to interact with Kyber's smart contracts, and also contains solidity examples for Kyber contract interactions<br />
+**migrations** - contains the truffle migration scripts to deploy and setup the Kyber contracts in a test environment
 
 ## Interacting with the Kyber contracts locally
 
@@ -113,7 +140,7 @@ A Ganache snapshot has already been pre-made with the Kyber contracts deployed. 
 
 We use the mnemonic `gesture rather obey video awake genuine patient base soon parrot upset lounge` for the accounts. The user wallet (`0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2`) already contains some ETH and test ERC20 tokens.
 
-*NOTE:* The mnemonic provided is used only for testing. DO NOT use the accounts generated for your own personal use in mainnet, as you can potentially lose these funds.
+**NOTE:** The mnemonic provided is used only for testing. DO NOT use the accounts generated for your own personal use in mainnet, as you can potentially lose these funds.
 
 To run the snapshot locally, run the command:
 
@@ -161,7 +188,7 @@ node examples/web3/swapEtherToToken.js
 
 For the Solidity examples, they are already deployed in the Ganache network using the Truffle migration scripts. You can interact with the Solidity examples using `truffle console`, or write your own Truffle/Web3 scripts to interact with the Solidity example contracts.
 
-### Ganache contract details
+### Ganache network details
 
 Network
 ==================
@@ -170,38 +197,39 @@ development
 
 Permissions
 ==================
-(admin) 0x2B522cABE9950D1153c26C1b399B293CaA99FcF9<br />
-(operator) 0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09<br />
-(alerter) 0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E
+(**admin**) 0x2B522cABE9950D1153c26C1b399B293CaA99FcF9<br />
+(**operator**) 0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09<br />
+(**alerter**) 0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E
 
 
 Wallets
 ==================
-(user) 0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2<br />
-(reserve) 0x0d95EBB4874f17157e40635C19dBC6E9b0BFdb03<br />
-(tax) 0x5243B5970f327c328B2739dEc88abC46FaE8931A<br />
-(bob) 0xe1a1d3637eE02391ac4035e72456Ca7448c73FD4<br />
-(alice) 0x1cF1919d91cebAb2E56a5c0cC7180bB54eD4f3F6
+(**user**) 0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2<br />
+(**reserve**) 0x0d95EBB4874f17157e40635C19dBC6E9b0BFdb03<br />
+(**tax**) 0x5243B5970f327c328B2739dEc88abC46FaE8931A<br />
+(**bob**) 0xe1a1d3637eE02391ac4035e72456Ca7448c73FD4<br />
+(**alice**) 0x1cF1919d91cebAb2E56a5c0cC7180bB54eD4f3F6
 
 
 Tokens
 ==================
-(KNC) 0x8c13AFB7815f10A8333955854E6ec7503eD841B7<br />
-(OMG) 0x3750bE154260872270EbA56eEf89E78E6E21C1D9<br />
-(SALT) 0x7ADc6456776Ed1e9661B3CEdF028f41BD319Ea52<br />
-(ZIL) 0x400DB523AA93053879b20F10F56023b2076aC852
+(**KNC**) 0x8c13AFB7815f10A8333955854E6ec7503eD841B7<br />
+(**OMG**) 0x3750bE154260872270EbA56eEf89E78E6E21C1D9<br />
+(**SALT**) 0x7ADc6456776Ed1e9661B3CEdF028f41BD319Ea52<br />
+(**ZIL**) 0x400DB523AA93053879b20F10F56023b2076aC852
 
 
 Contracts
 ==================
-(KyberNetwork) 0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45<br />
-(KyberNetworkProxy) 0xA46E01606f9252fa833131648f4D855549BcE9D9<br />
-(ConversionRates) 0xF6084Ad447076da0246cD28e104533f9f51dbD2F<br />
-(SanityRates) 0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64<br />
-(KyberReserve) 0xd44B9352e4Db6d0640449ed653983827BD882885<br />
-(FeeBurner) 0xd3add19ee7e5287148a5866784aE3C55bd4E375A<br />
-(WhiteList) 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167<br />
-(ExpectedRate) 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C<br />
-(SwapEtherToToken) 0xf71D305142eC1aC03896526D52F743959db01624<br />
-(SwapTokenToEther) 0x63D556067eDbCD97ACc3356314398F70d4CcF948<br />
-(SwapTokenToToken) 0xE16d27F08e94D9d6f05C988169E388068C790B75
+(**KyberNetwork**) 0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45<br />
+(**KyberNetworkProxy**) 0xA46E01606f9252fa833131648f4D855549BcE9D9<br />
+(**ConversionRates**) 0xF6084Ad447076da0246cD28e104533f9f51dbD2F<br />
+(**SanityRates**) 0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64<br />
+(**KyberReserve**) 0xd44B9352e4Db6d0640449ed653983827BD882885<br />
+(**FeeBurner**) 0xd3add19ee7e5287148a5866784aE3C55bd4E375A<br />
+(**WhiteList**) 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167<br />
+(**ExpectedRate**) 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C<br />
+(**SwapEtherToToken**) 0xf71D305142eC1aC03896526D52F743959db01624<br />
+(**SwapTokenToEther**) 0x63D556067eDbCD97ACc3356314398F70d4CcF948<br />
+(**SwapTokenToToken**) 0xE16d27F08e94D9d6f05C988169E388068C790B75<br />
+(**Trade**) 0x19F18bde9896890f161DeD31B05b58dc0ffD911b

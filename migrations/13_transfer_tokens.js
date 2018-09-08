@@ -1,4 +1,4 @@
-/* global artifacts */
+/* global artifacts, web3 */
 /* eslint-disable no-unused-vars */
 const BN = require('bn.js');
 const fs = require('fs');
@@ -31,6 +31,7 @@ module.exports = async (deployer, network, accounts) => {
   const userWallet = accounts[4];
 
   // Set the instances
+  const ReserveInstance = await Reserve.at(Reserve.address);
   const KNCInstance = await KNC.at(KNC.address);
   const OMGInstance = await OMG.at(OMG.address);
   const SALTInstance = await SALT.at(SALT.address);
@@ -56,9 +57,15 @@ module.exports = async (deployer, network, accounts) => {
   tx(await SALTInstance.transfer(userWallet, SALTAmount), 'transfer()');
   tx(await ZILInstance.transfer(userWallet, ZILAmount), 'transfer()');
 
-  // Transfer tokens to the reserve
+  // Transfer tokens and ETH to the reserve
   tx(await KNCInstance.transfer(Reserve.address, KNCAmount), 'transfer()');
   tx(await OMGInstance.transfer(Reserve.address, OMGAmount), 'transfer()');
   tx(await SALTInstance.transfer(Reserve.address, SALTAmount), 'transfer()');
   tx(await ZILInstance.transfer(Reserve.address, ZILAmount), 'transfer()');
+  tx(
+    await ReserveInstance.sendTransaction(
+      { from: admin, value: web3.utils.toWei(new BN(50)) },
+    ),
+    'sendTransaction()',
+  );
 };

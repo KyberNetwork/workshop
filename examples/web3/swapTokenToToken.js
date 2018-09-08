@@ -52,7 +52,6 @@ async function sendTx(txObject) {
   const txData = txObject.encodeABI();
   const txFrom = userWallet;
   const txTo = txObject._parent.options.address;
-  const txKey = wallets[userWallet]._privKey;
 
   const txParams = {
     from: txFrom,
