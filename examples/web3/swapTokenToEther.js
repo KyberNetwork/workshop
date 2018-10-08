@@ -82,19 +82,19 @@ async function main() {
   // Approve the KyberNetwork contract to spend user's tokens
   txObject = KNCInstance.methods.approve(
     KyberNetworkProxyAddress,
-    web3.utils.toWei(new BN(10000)),
+    web3.utils.toWei('10000'),
   );
   await sendTx(txObject);
 
   const { expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
     KNC_ADDRESS, // srcToken
     ETH_ADDRESS, // destToken
-    web3.utils.toWei(new BN(50)), // srcQty
+    web3.utils.toWei('50'), // srcQty
   ).call();
 
   txObject = NetworkProxyInstance.methods.swapTokenToEther(
     KNC_ADDRESS, // srcToken
-    web3.utils.toWei(new BN(50)), // srcAmount
+    web3.utils.toWei('50'), // srcAmount
     expectedRate, // minConversionRate
   );
   const result = await sendTx(txObject);

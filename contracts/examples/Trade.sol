@@ -1,17 +1,17 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.25;
 
 import "../KyberNetworkProxy.sol";
 
 
 contract Trade {
-    event Swap(address indexed sender, ERC20 srcToken, ERC20 destToken, uint amount);
+    event Swap(address indexed sender, ERC20 srcToken, ERC20 destToken);
 
     KyberNetworkProxy public proxy;
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
-    /// @dev Contract contstructor
+    //@dev Contract contstructor
     //@param _proxy KyberNetworkProxy contract address
-    constructor (KyberNetworkProxy _proxy) public {
+    constructor(KyberNetworkProxy _proxy) public {
         proxy = _proxy;
     }
 
@@ -27,24 +27,24 @@ contract Trade {
         ERC20 destToken,
         address destAddress,
         uint maxDestAmount
-    ) public payable {
+    ) public {
         uint minConversionRate;
 
-        // Check that the player has transferred the token to this contract
-        require(srcToken.transferFrom(msg.sender, this, srcQty));
+        // Check that the token transferFrom has succeeded
+        require(srcToken.transferFrom(msg.sender, address(this), srcQty));
 
         // Mitigate ERC20 Approve front-running attack, by initially setting
         // allowance to 0
-        require(srcToken.approve(proxy, 0));
+        require(srcToken.approve(address(proxy), 0));
 
         // Set the spender's token allowance to tokenQty
-        require(srcToken.approve(proxy, srcQty));
+        require(srcToken.approve(address(proxy), srcQty));
 
         // Get the minimum conversion rate
-        (minConversionRate,) = proxy.getExpectedRate(srcToken, ETH_TOKEN_ADDRESS, srcQty);
+        (minConversionRate,) = proxy.getExpectedRate(srcToken, destToken, srcQty);
 
-        // Swap the ERC20 token to ETH
-        uint destAmount = proxy.trade(
+        // Swap the ERC20 token and send to destAddress
+        proxy.trade(
             srcToken,
             srcQty,
             destToken,
@@ -54,10 +54,7 @@ contract Trade {
             0
         );
 
-        // Send the swapped tokens to the destination address
-        require(destToken.transfer(destAddress, destAmount));
-
         // Log the event
-        emit Swap(msg.sender, srcToken, destToken, destAmount);
+        emit Swap(msg.sender, srcToken, destToken);
     }
 }

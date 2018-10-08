@@ -10,9 +10,6 @@ const OMG = artifacts.require('./mockTokens/OmiseGo.sol');
 const SALT = artifacts.require('./mockTokens/Salt.sol');
 const ZIL = artifacts.require('./mockTokens/Zilliqa.sol');
 
-const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));
-const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
-
 function tx(result, call) {
   const logs = (result.logs.length > 0) ? result.logs[0] : { address: null, event: null };
 
@@ -39,16 +36,16 @@ module.exports = async (deployer, network, accounts) => {
 
   // Set token amounts to transfer to user and reserve wallet
   const KNCAmount = (
-    new BN(10000).mul(new BN(10).pow(await KNCInstance.decimals()))
+    new BN(100000).mul(new BN(10).pow(await KNCInstance.decimals()))
   ).toString();
   const OMGAmount = (
-    new BN(10000).mul(new BN(10).pow(await OMGInstance.decimals()))
+    new BN(100000).mul(new BN(10).pow(await OMGInstance.decimals()))
   ).toString();
   const SALTAmount = (
-    new BN(10000).mul(new BN(10).pow(await SALTInstance.decimals()))
+    new BN(100000).mul(new BN(10).pow(await SALTInstance.decimals()))
   ).toString();
   const ZILAmount = (
-    new BN(10000).mul(new BN(10).pow(await ZILInstance.decimals()))
+    new BN(100000).mul(new BN(10).pow(await ZILInstance.decimals()))
   ).toString();
 
   // Transfer tokens to the user

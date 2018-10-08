@@ -33,14 +33,14 @@ module.exports = async (callback) => {
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     KNC.address, // srcToken
     ETH_ADDRESS, // destToken
-    1, // srcQty
+    web3.utils.toWei(new BN(1)), // srcQty
   ));
   stdlog(`KNC <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     KNC.address, // srcToken
     OMG.address, // destToken
-    1, // srcQty
+    web3.utils.toWei(new BN(1)), // srcQty
   ));
   stdlog(`KNC <-> OMG getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
 

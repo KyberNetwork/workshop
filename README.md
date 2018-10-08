@@ -4,7 +4,7 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
 
 ## Useful Links
 
-1. [Slides](https://docs.google.com/presentation/d/1J09swm1NDGwmtvOrw5MpQLlgpagKcLfNDV8YvL6UQso/edit?ts=5b8cfd89#slide=id.g414af8a3aa_2_66)
+1. [Slides](https://docs.google.com/presentation/d/1hBXD3kKlFy1rTad7fhFMbPijKc_VgVNqqH0of7F1ikk/)
 2. [KyberDeveloper Portal](http://developer.kyber.network)
 3. [KyberDeveloper Telegram](https://t.me/KyberDeveloper)
 4. [Workshop Repository](https://github.com/KyberNetwork/workshop)
@@ -12,6 +12,17 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
     - https://faucet.kyber.network
     - https://faucet.ropsten.be
 6. [Ropsten Swap](https://ropsten.kyber.network)
+
+## What is Kyber?
+Kyber is a widely used on-chain protocol that makes accessing liquidity simple for users, DApps and financial applications. The protocol has powered decentralised token swaps on popular wallets like MyEtherWallet and imToken, decentralised token payments (users can pay in any supported ERC20 token) in popular DApps like Etheremon and Peepeth and providing an on-chain liquidity source for decentralised financial applications like MelonPort, Set Protocol, b0x and many more.
+
+Kyber protocol brings token inventories and prices on-chain, hence allowing developers to directly embed value exchanges into their smart contracts without any technical or security overhead. This allows for:
+
+- Instant confirmation. A transaction happens with instant confirmation if it's sent from on-chain entities like smart contracts. Otherwise, once the transaction is included on the blockchain, the execution triggered by the transaction is immediately confirmed.
+
+- Operation certainty. There is no transactional risk. Users know the rate and how much liquidity is available before they commit their transaction. There is also no settlement uncertainty or counterparty risk.
+
+- Global and diverse pool of different tokens. Kyber welcomes token holders to contribute their token to the liquidity pool. By having their token made available to the liquidity pool, the token will be available in all services integrated with Kyber.
 
 ## Prerequisites
 
@@ -54,6 +65,7 @@ workshop<br />
 │   │   ├── SwapEtherToToken.sol<br />
 │   │   ├── SwapTokenToEther.sol<br />
 │   │   └── SwapTokenToToken.sol<br />
+│   │   └── Trade.sol<br />
 │   ├── ExpectedRateInterface.sol<br />
 │   ├── ExpectedRate.sol<br />
 │   ├── FeeBurnerInterface.sol<br />
@@ -64,6 +76,8 @@ workshop<br />
 │   ├── KyberNetwork.sol<br />
 │   ├── KyberReserveInterface.sol<br />
 │   ├── KyberReserve.sol<br />
+│   ├── LiquidityConversionRates.sol<br />
+│   ├── LiquidityFormula.sol<br />
 │   ├── Migrations.sol<br />
 │   ├── mockTokens<br />
 │   │   ├── KyberGenesisToken.sol<br />
@@ -87,6 +101,7 @@ workshop<br />
 │   │   ├── SwapEtherToToken.sol -> ../../contracts/examples/SwapEtherToToken.sol<br />
 │   │   ├── SwapTokenToEther.sol -> ../../contracts/examples/SwapTokenToEther.sol<br />
 │   │   └── SwapTokenToToken.sol -> ../../contracts/examples/SwapTokenToToken.sol<br />
+│   │   └── Trade.sol -> ../../contracts/examples/Trade.sol<br />
 │   ├── truffle<br />
 │   │   ├── getExpectedRate.js<br />
 │   │   ├── swapEtherToToken.js<br />

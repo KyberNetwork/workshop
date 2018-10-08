@@ -10,7 +10,7 @@ contract Salt is MintableToken, StandardBurnableToken {
     uint8 public decimals = 8;
     uint public totalSupply = 21 * (10 ** 14);
 
-    constructor () public {
+    constructor() public {
         balances[msg.sender] = totalSupply;
     }
 }

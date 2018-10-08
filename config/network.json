@@ -31,7 +31,7 @@
     "partnerCap": 1000000
   },
   "ConversionRates": {
-    "validDurationBlock": 600000000,
+    "validDurationBlock": 1000000000,
     "bytes14": "0x0000000000000000000000000000",
     "KNCBaseBuy": "549000000000000000000",
     "KNCBaseSell": "1813123931381047",

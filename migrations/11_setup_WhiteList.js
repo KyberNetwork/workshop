@@ -56,7 +56,8 @@ module.exports = async (deployer, network, accounts) => {
   );
   tx(
     await WhiteListInstance.setUserCategory(
-      userWallet, networkConfig.WhiteList.userCategory,
+      userWallet,
+      networkConfig.WhiteList.userCategory,
       { from: operator },
     ),
     'setUserCategory()',

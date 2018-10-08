@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.25;
 
 import "../KyberNetworkProxy.sol";
 
@@ -9,9 +9,9 @@ contract SwapEtherToToken {
     KyberNetworkProxy public proxy;
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
-    /// @dev Contract contstructor
+    //@dev Contract contstructor
     //@param _proxy KyberNetworkProxy contract address
-    constructor (KyberNetworkProxy _proxy) public {
+    constructor(KyberNetworkProxy _proxy) public {
         proxy = _proxy;
     }
 

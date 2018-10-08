@@ -26,7 +26,6 @@ module.exports = {
     'no-console': ['error', {
       allow: ['log', 'warn', 'error']
     }],
-    'no-await-in-loop': 0,
     'no-underscore-dangle': ['error', {
       allow: ['_parent']
     }],

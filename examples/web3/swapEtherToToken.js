@@ -54,7 +54,7 @@ async function sendTx(txObject) {
     from: txFrom,
     to: txTo,
     data: txData,
-    value: web3.utils.toWei(new BN(1)),
+    value: web3.utils.toWei('1'),
     gas,
     nonce,
     chainId: await web3.eth.net.getId(),
@@ -79,7 +79,7 @@ async function main() {
   const { expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
     ETH_ADDRESS, // srcToken
     KNC_ADDRESS, // destToken
-    web3.utils.toWei(new BN(1)), // srcQty
+    web3.utils.toWei('1'), // srcQty
   ).call();
 
   const txObject = NetworkProxyInstance.methods.swapEtherToToken(

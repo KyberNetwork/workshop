@@ -28,7 +28,7 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
-  const userWallet = accounts[4];
+  const reserveWallet = accounts[5];
 
   // Set the instances
   const NetworkInstance = await Network.at(Network.address);
@@ -50,7 +50,7 @@ module.exports = async (deployer, network, accounts) => {
   Object.keys(tokenConfig).forEach(async (key) => {
     // Add the withdrawal address for each token
     tx(
-      await ReserveInstance.approveWithdrawAddress(eval(key).address, userWallet, true),
+      await ReserveInstance.approveWithdrawAddress(eval(key).address, reserveWallet, true),
       'approveWithdrawAddress()',
     );
 

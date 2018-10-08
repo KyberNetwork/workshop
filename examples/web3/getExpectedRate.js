@@ -32,21 +32,21 @@ async function main() {
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
     ETH_ADDRESS, // srcToken
     KNC_ADDRESS, // destToken
-    web3.utils.toWei(new BN(1)), // srcQty
+    web3.utils.toWei('1'), // srcQty
   ).call());
   stdlog(`ETH <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
     KNC_ADDRESS, // srcToken
     ETH_ADDRESS, // destToken
-    1, // srcQty
+    web3.utils.toWei('1'), // srcQty
   ).call());
   stdlog(`KNC <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
     KNC_ADDRESS, // srcToken
     OMG_ADDRESS, // destToken
-    1, // srcQty
+    web3.utils.toWei('1'), // srcQty
   ).call());
   stdlog(`KNC <-> OMG getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
 
