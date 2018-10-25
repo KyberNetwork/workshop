@@ -4,13 +4,13 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
 
 ## Useful Links
 
-1. [Slides](https://docs.google.com/presentation/d/1hBXD3kKlFy1rTad7fhFMbPijKc_VgVNqqH0of7F1ikk/)
+1. [Slides](https://docs.google.com/presentation/d/1UhnFoHKOdAuyuwN3BVj1pzmxAdIifPgs7QWt9OOi1pM/)
 2. [KyberDeveloper Portal](http://developer.kyber.network)
 3. [KyberDeveloper Telegram](https://t.me/KyberDeveloper)
 4. [Workshop Repository](https://github.com/KyberNetwork/workshop)
 5. Ropsten ETH Faucets
-    - https://faucet.kyber.network
-    - https://faucet.ropsten.be
+   - https://faucet.metamask.io
+   - https://faucet.ropsten.be
 6. [Ropsten Swap](https://ropsten.kyber.network)
 
 ## What is Kyber?
