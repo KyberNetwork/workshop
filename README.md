@@ -9,9 +9,10 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
 3. [KyberDeveloper Telegram](https://t.me/KyberDeveloper)
 4. [Workshop Repository](https://github.com/KyberNetwork/workshop)
 5. Ropsten ETH Faucets
+   - https://faucet.kyber.network
    - https://faucet.metamask.io
    - https://faucet.ropsten.be
-6. [Ropsten Swap](https://ropsten.kyber.network)
+6. [Ropsten KyberSwap](https://ropsten.kyber.network)
 
 ## What is Kyber?
 Kyber is a widely used on-chain protocol that makes accessing liquidity simple for users, DApps and financial applications. The protocol has powered decentralised token swaps on popular wallets like MyEtherWallet and imToken, decentralised token payments (users can pay in any supported ERC20 token) in popular DApps like Etheremon and Peepeth and providing an on-chain liquidity source for decentralised financial applications like MelonPort, Set Protocol, b0x and many more.
@@ -82,6 +83,7 @@ workshop<br />
 │   ├── mockTokens<br />
 │   │   ├── KyberGenesisToken.sol<br />
 │   │   ├── KyberNetworkCrystal.sol<br />
+│   │   ├── Mana.sol<br />
 │   │   ├── OmiseGo.sol<br />
 │   │   ├── Salt.sol<br />
 │   │   └── Zilliqa.sol<br />
@@ -113,6 +115,7 @@ workshop<br />
 │       │   ├── KyberNetworkProxy.abi<br />
 │       │   ├── KNC.abi<br />
 │       │   ├── OMG.abi<br />
+│       │   ├── MANA.abi<br />
 │       │   ├── SALT.abi<br />
 │       │   └── ZIL.abi<br />
 │       ├── getExpectedRate.js<br />
@@ -127,14 +130,16 @@ workshop<br />
 │   ├── 4_setup_permissions.js<br />
 │   ├── 5_setup_KyberNetworkProxy.js<br />
 │   ├── 6_setup_KyberReserve.js<br />
-│   ├── 7_setup_FeeBurner.js<br />
-│   ├── 8_setup_ExpectedRate.js<br />
-│   ├── 9_setup_ConversionRates.js<br />
-│   ├── 10_setup_SanityRates.js<br />
-│   ├── 11_setup_WhiteList.js<br />
-│   ├── 12_setup_KyberNetwork.js<br />
-│   ├── 13_transfer_tokens.js<br />
-│   └── 14_deployment_summary.js<br />
+│   ├── 7_setup_KyberAutomatedReserve.js<br />
+│   ├── 8_setup_FeeBurner.js<br />
+│   ├── 9_setup_ExpectedRate.js<br />
+│   ├── 10_setup_ConversionRates.js<br />
+│   ├── 11_setup_LiquidityConversionRates.js<br />
+│   ├── 12_setup_SanityRates.js<br />
+│   ├── 13_setup_WhiteList.js<br />
+│   ├── 14_setup_KyberNetwork.js<br />
+│   ├── 15_transfer_tokens.js<br />
+│   └── 16_deployment_summary.js<br />
 ├── package.json<br />
 ├── README.md<br />
 ├── test<br />
@@ -155,12 +160,12 @@ A Ganache snapshot has already been pre-made with the Kyber contracts deployed. 
 
 We use the mnemonic `gesture rather obey video awake genuine patient base soon parrot upset lounge` for the accounts. The user wallet (`0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2`) already contains some ETH and test ERC20 tokens.
 
-**NOTE:** The mnemonic provided is used only for testing. DO NOT use the accounts generated for your own personal use in mainnet, as you can potentially lose these funds.
+**NOTE:** The mnemonic provided is used only for testing. DO NOT use the accounts generated for your own personal use in mainnet, as you can potentially lose those funds.
 
 To run the snapshot locally, run the command:
 
 ```sh
-ganache-cli --db db --accounts 10 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
+ganache-cli --db db --accounts 10 --defaultBalanceEther 500 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
 ```
 
 ### 1B. Run Ganache and deploy the Kyber contracts from scratch
@@ -169,7 +174,7 @@ If you wish to deploy the Kyber contracts yourself, you can run the following co
 
 Run ganache-cli in one terminal session
 ```
-ganache-cli --accounts 10 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
+ganache-cli --accounts 10 --defaultBalanceEther 500 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
 ```
 
 In a new terminal session, connect to the ganache network, and run the truffle migration scripts
@@ -231,20 +236,25 @@ Tokens
 (**KNC**) 0x8c13AFB7815f10A8333955854E6ec7503eD841B7<br />
 (**OMG**) 0x3750bE154260872270EbA56eEf89E78E6E21C1D9<br />
 (**SALT**) 0x7ADc6456776Ed1e9661B3CEdF028f41BD319Ea52<br />
-(**ZIL**) 0x400DB523AA93053879b20F10F56023b2076aC852
+(**ZIL**) 0x400DB523AA93053879b20F10F56023b2076aC852<br />
+(**MANA**) 0xe19Ec968c15f487E96f631Ad9AA54fAE09A67C8c
 
 
 Contracts
 ==================
-(**KyberNetwork**) 0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45<br />
-(**KyberNetworkProxy**) 0xA46E01606f9252fa833131648f4D855549BcE9D9<br />
-(**ConversionRates**) 0xF6084Ad447076da0246cD28e104533f9f51dbD2F<br />
-(**SanityRates**) 0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64<br />
-(**KyberReserve**) 0xd44B9352e4Db6d0640449ed653983827BD882885<br />
-(**FeeBurner**) 0xd3add19ee7e5287148a5866784aE3C55bd4E375A<br />
-(**WhiteList**) 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167<br />
-(**ExpectedRate**) 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C<br />
-(**SwapEtherToToken**) 0xf71D305142eC1aC03896526D52F743959db01624<br />
-(**SwapTokenToEther**) 0x63D556067eDbCD97ACc3356314398F70d4CcF948<br />
-(**SwapTokenToToken**) 0xE16d27F08e94D9d6f05C988169E388068C790B75<br />
-(**Trade**) 0x19F18bde9896890f161DeD31B05b58dc0ffD911b
+(**KyberNetwork**) 0xA46E01606f9252fa833131648f4D855549BcE9D9<br />
+(**KyberNetworkProxy**) 0xF6084Ad447076da0246cD28e104533f9f51dbD2F<br />
+(**ConversionRates**) 0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64<br />
+(**LiquidityConversionRates**) 0xd44B9352e4Db6d0640449ed653983827BD882885<br />
+(**SanityRates**) 0xd3add19ee7e5287148a5866784aE3C55bd4E375A<br />
+(**KyberReserve**) 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167<br />
+(**AutomatedKyberReserve**) 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C<br />
+(**FeeBurner**) 0xf71D305142eC1aC03896526D52F743959db01624<br />
+(**WhiteList**) 0x63D556067eDbCD97ACc3356314398F70d4CcF948<br />
+(**ExpectedRate**) 0xE16d27F08e94D9d6f05C988169E388068C790B75<br />
+(**SwapEtherToToken**) 0x19F18bde9896890f161DeD31B05b58dc0ffD911b<br />
+(**SwapTokenToEther**) 0xdE4e2118f45f1b27699B25004563819B57f5E3b2<br />
+(**SwapTokenToToken**) 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8<br />
+(**Trade**) 0x295631209354194B6453921bfFeFEe79cD42BdB9
+
+**NOTE:** The `KyberReserve` and `AutomatedKyberReserve` are the same contracts. A duplicate was made as a workaround due to a limitation of Truffle where only one instance of a contract can be migrated.

@@ -74,17 +74,13 @@ module.exports = {
       timeoutBlocks: 500,
       skipDryRun: false,
     },
-    compilers: {
-      solc: {
-        version: 'native',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-          evmVersion: 'byzantium',
-        },
-      },
+  },
+  solc: {
+    version: 'native',
+    optimizer: {
+      enabled: true,
+      runs: 200,
     },
+    evmVersion: 'byzantium',
   },
 };

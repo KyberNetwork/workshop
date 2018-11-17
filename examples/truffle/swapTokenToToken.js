@@ -7,6 +7,7 @@ const Network = artifacts.require('./KyberNetwork.sol');
 const NetworkProxy = artifacts.require('./KyberNetworkProxy.sol');
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const OMG = artifacts.require('./mockTokens/OmiseGo.sol');
+const MANA = artifacts.require('./mockTokens/Mana.sol');
 
 function stdlog(input) {
   console.log(`${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}] ${input}`);
@@ -28,17 +29,22 @@ function tx(result, call) {
 module.exports = async (callback) => {
   const accounts = web3.eth.accounts._provider.addresses;
   const userWallet = accounts[4];
+  let expectedRate;
+  let slippageRate;
+  let result;
 
   // Set the instances
   const NetworkProxyInstance = await NetworkProxy.at(NetworkProxy.address);
   const KNCInstance = await KNC.at(KNC.address);
   const OMGInstance = await OMG.at(OMG.address);
+  const MANAInstance = await MANA.at(MANA.address);
 
   stdlog('- START -');
   stdlog(`KyberNetworkProxy (${NetworkProxy.address})`);
 
   stdlog(`KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`);
   stdlog(`OMG balance of ${userWallet} = ${web3.utils.fromWei(await OMGInstance.balanceOf(userWallet))}`);
+  stdlog(`MANA balance of ${userWallet} = ${web3.utils.fromWei(await MANAInstance.balanceOf(userWallet))}`);
 
   // Approve the KyberNetwork contract to spend user's tokens
   await KNCInstance.approve(
@@ -47,23 +53,39 @@ module.exports = async (callback) => {
     { from: userWallet },
   );
 
-  const { expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
+  ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     KNC.address, // srcToken
     OMG.address, // destToken
-    web3.utils.toWei(new BN(50)), // srcQty
-  );
+    web3.utils.toWei(new BN(100)), // srcQty
+  ));
 
-  const result = await NetworkProxyInstance.swapTokenToToken(
+  result = await NetworkProxyInstance.swapTokenToToken(
     KNC.address, // srcToken
-    web3.utils.toWei(new BN(50)), // srcAmount
+    web3.utils.toWei(new BN(100)), // srcAmount
     OMG.address, // destToken
     expectedRate, // minConversionRate
     { from: userWallet },
   );
   tx(result, 'KNC <-> OMG swapTokenToToken()');
 
+  ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
+    KNC.address, // srcToken
+    MANA.address, // destToken
+    web3.utils.toWei(new BN(100)), // srcQty
+  ));
+
+  result = await NetworkProxyInstance.swapTokenToToken(
+    KNC.address, // srcToken
+    web3.utils.toWei(new BN(100)), // srcAmount
+    MANA.address, // destToken
+    expectedRate, // minConversionRate
+    { from: userWallet },
+  );
+  tx(result, 'KNC <-> MANA swapTokenToToken()');
+
   stdlog(`KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`);
   stdlog(`OMG balance of ${userWallet} = ${web3.utils.fromWei(await OMGInstance.balanceOf(userWallet))}`);
+  stdlog(`MANA balance of ${userWallet} = ${web3.utils.fromWei(await MANAInstance.balanceOf(userWallet))}`);
 
   stdlog('- END -');
   callback();

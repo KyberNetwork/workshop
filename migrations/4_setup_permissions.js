@@ -4,6 +4,7 @@ const Network = artifacts.require('./KyberNetwork.sol');
 const ConversionRates = artifacts.require('./ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
 const Reserve = artifacts.require('./KyberReserve.sol');
+const AutomatedReserve = artifacts.require('./KyberAutomatedReserve.sol');
 const FeeBurner = artifacts.require('./FeeBurner.sol');
 const WhiteList = artifacts.require('./WhiteList.sol');
 const ExpectedRate = artifacts.require('./ExpectedRate.sol');
@@ -30,6 +31,7 @@ module.exports = async (deployer, network, accounts) => {
   const ConversionRatesInstance = await ConversionRates.at(ConversionRates.address);
   const SanityRatesInstance = await SanityRates.at(SanityRates.address);
   const ReserveInstance = await Reserve.at(Reserve.address);
+  const AutomatedReserveInstance = await AutomatedReserve.at(AutomatedReserve.address);
   const FeeBurnerInstance = await FeeBurner.at(FeeBurner.address);
   const WhiteListInstance = await WhiteList.at(WhiteList.address);
   const ExpectedRateInstance = await ExpectedRate.at(ExpectedRate.address);
@@ -39,6 +41,8 @@ module.exports = async (deployer, network, accounts) => {
   tx(await ConversionRatesInstance.addOperator(operator), 'addOperator()');
   tx(await ReserveInstance.addOperator(operator), 'addOperator()');
   tx(await ReserveInstance.addAlerter(alerter), 'addAlerter()');
+  tx(await AutomatedReserveInstance.addOperator(operator), 'addOperator()');
+  tx(await AutomatedReserveInstance.addAlerter(alerter), 'addAlerter()');
   tx(await FeeBurnerInstance.addOperator(operator), 'addOperator()');
   tx(await WhiteListInstance.addOperator(operator), 'addOperator()');
   tx(await ExpectedRateInstance.addOperator(operator), 'addOperator()');
