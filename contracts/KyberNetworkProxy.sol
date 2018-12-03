@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity 0.4.18;
 
 
 import "./ERC20Interface.sol";
@@ -158,7 +158,7 @@ contract KyberNetworkProxy is KyberNetworkProxyInterface, SimpleNetworkInterface
         returns(uint)
     {
         require(src == ETH_TOKEN_ADDRESS || msg.value == 0);
-
+        
         UserBalance memory userBalanceBefore;
 
         userBalanceBefore.srcBalance = getBalance(src, msg.sender);

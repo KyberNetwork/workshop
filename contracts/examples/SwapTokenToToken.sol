@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.4.18;
 
 import "../KyberNetworkProxy.sol";
 
@@ -11,7 +11,7 @@ contract SwapTokenToToken {
 
     //@dev Contract contstructor
     //@param _proxy KyberNetworkProxy contract address
-    constructor(KyberNetworkProxy _proxy) public {
+    function SwapTokenToToken(KyberNetworkProxy _proxy) public {
         proxy = _proxy;
     }
 
@@ -43,6 +43,6 @@ contract SwapTokenToToken {
         require(destToken.transfer(destAddress, destAmount));
 
         // Log the event
-        emit Swap(msg.sender, srcToken, destToken, destAmount);
+        Swap(msg.sender, srcToken, destToken, destAmount);
     }
 }

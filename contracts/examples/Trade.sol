@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.4.18;
 
 import "../KyberNetworkProxy.sol";
 
@@ -11,7 +11,7 @@ contract Trade {
 
     //@dev Contract contstructor
     //@param _proxy KyberNetworkProxy contract address
-    constructor(KyberNetworkProxy _proxy) public {
+    function Trade(KyberNetworkProxy _proxy) public {
         proxy = _proxy;
     }
 
@@ -55,6 +55,6 @@ contract Trade {
         );
 
         // Log the event
-        emit Swap(msg.sender, srcToken, destToken);
+        Swap(msg.sender, srcToken, destToken);
     }
 }
