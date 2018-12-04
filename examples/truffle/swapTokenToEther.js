@@ -3,7 +3,6 @@
 const BN = require('bn.js');
 const moment = require('moment');
 
-const Network = artifacts.require('./KyberNetwork.sol');
 const NetworkProxy = artifacts.require('./KyberNetworkProxy.sol');
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const MANA = artifacts.require('./mockTokens/Mana.sol');

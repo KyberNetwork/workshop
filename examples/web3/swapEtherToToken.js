@@ -17,7 +17,7 @@ const { addresses, wallets } = provider;
 const gasPrice = web3.utils.toWei(new BN(10), 'gwei');
 
 const KyberNetworkProxyABI = JSON.parse(fs.readFileSync('./abi/KyberNetworkProxy.abi', 'utf8'));
-const KyberNetworkProxyAddress = '0xF6084Ad447076da0246cD28e104533f9f51dbD2F';
+const KyberNetworkProxyAddress = '0xd3add19ee7e5287148a5866784aE3C55bd4E375A';
 const NetworkProxyInstance = new web3.eth.Contract(KyberNetworkProxyABI, KyberNetworkProxyAddress);
 
 const ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
@@ -45,13 +45,12 @@ function tx(result, call) {
   console.log();
 }
 
-async function sendTx(txObject) {
+async function sendTx(txObject, txTo) {
   const nonce = await web3.eth.getTransactionCount(userWallet);
   const gas = 500 * 1000;
 
   const txData = txObject.encodeABI();
   const txFrom = userWallet;
-  const txTo = txObject._parent.options.address;
 
   const txParams = {
     from: txFrom,
@@ -96,7 +95,7 @@ async function main() {
     KNC_ADDRESS, // destToken
     expectedRate, // minConversionRate
   );
-  result = await sendTx(txObject);
+  result = await sendTx(txObject, KyberNetworkProxyAddress);
   tx(result, 'ETH <-> KNC swapEtherToToken()');
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
@@ -109,7 +108,7 @@ async function main() {
     MANA_ADDRESS, // destToken
     expectedRate, // minConversionRate
   );
-  result = await sendTx(txObject);
+  result = await sendTx(txObject, KyberNetworkProxyAddress);
   tx(result, 'ETH <-> MANA swapEtherToToken()');
 
   stdlog(`ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`);

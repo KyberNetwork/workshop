@@ -61,22 +61,26 @@ module.exports = {
       gasPrice: 20000000000,
       confirmations: 0,
       timeoutBlocks: 500,
-      skipDryRun: false,
+      skipDryRun: true,
     },
     mainnet: {
       provider: new HDWalletProvider(mnemonic, 'http://localhost:8545', 0, 10),
       host: '127.0.0.1',
       port: 8545,
       network_id: 1,
-      gas: 7000000,
-      gasPrice: 20000000000,
+      gas: 5000000,
+      gasPrice: 5000000000,
       confirmations: 0,
       timeoutBlocks: 500,
       skipDryRun: false,
     },
   },
+  compilers: {
+    solc: {
+      version: '0.4.18',
+    },
+  },
   solc: {
-    version: 'native',
     optimizer: {
       enabled: true,
       runs: 200,
