@@ -75,8 +75,12 @@ module.exports = {
       skipDryRun: false,
     },
   },
+  compilers: {
+    solc: {
+      version: '0.4.18',
+    },
+  },
   solc: {
-    version: 'native',
     optimizer: {
       enabled: true,
       runs: 200,

@@ -4,15 +4,15 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
 
 ## Useful Links
 
-1. [Slides](https://docs.google.com/presentation/d/1UhnFoHKOdAuyuwN3BVj1pzmxAdIifPgs7QWt9OOi1pM/)
-2. [KyberDeveloper Portal](http://developer.kyber.network)
-3. [KyberDeveloper Telegram](https://t.me/KyberDeveloper)
-4. [Workshop Repository](https://github.com/KyberNetwork/workshop)
+1. [Slides](https://docs.google.com/presentation/d/1YllvG5QelqQhpbC-w2UKZoapdQNudmdibrUw3EhCHHk/)
+2. [KyberDeveloper Portal](http://developer.kyber.network/)
+3. [KyberDeveloper Telegram](https://t.me/KyberDeveloper/)
+4. [Workshop Repository](https://github.com/KyberNetwork/workshop/)
 5. Ropsten ETH Faucets
    - https://faucet.kyber.network
    - https://faucet.metamask.io
    - https://faucet.ropsten.be
-6. [Ropsten KyberSwap](https://ropsten.kyber.network)
+6. [Ropsten KyberSwap](https://ropsten.kyber.network/)
 
 ## What is Kyber?
 Kyber is a widely used on-chain protocol that makes accessing liquidity simple for users, DApps and financial applications. The protocol has powered decentralised token swaps on popular wallets like MyEtherWallet and imToken, decentralised token payments (users can pay in any supported ERC20 token) in popular DApps like Etheremon and Peepeth and providing an on-chain liquidity source for decentralised financial applications like MelonPort, Set Protocol, b0x and many more.
@@ -27,7 +27,9 @@ Kyber protocol brings token inventories and prices on-chain, hence allowing deve
 
 ## Prerequisites
 
-1. Ganache
+1. Node and NPM LTS versions `10.14.1` and `6.4.1` respectively. Download from [nodejs.org](https://nodejs.org/en/download/)
+
+2. Ganache
 
 Install the Ganache AppImage by downloading here https://truffleframework.com/ganache.
 To use the provided Ganache snapshot, install `ganache-cli`.
@@ -36,15 +38,17 @@ To use the provided Ganache snapshot, install `ganache-cli`.
 sudo npm install -g ganache-cli
 ```
 
-2. Truffle
+3. Truffle
 
 Install the latest Truffle v5 beta.
 
 ```
-sudo npm install -g truffle@beta
+sudo npm install -g truffle@5.0.0-beta.1
 ```
 
-3. Install the rest of the NPM packages
+Truffle v5.0 is needed in order to take advantage of new features, such as using async/await in the migration scripts. You can read more about the new features in the [Truffle release page](https://github.com/trufflesuite/truffle/releases/tag/v5.0.0-beta.0/)
+
+4. Install the rest of the NPM packages
 
 ```
 npm install
@@ -198,7 +202,8 @@ truffle exec examples/truffle/swapEtherToToken.js
 
 For the Web3 examples:
 ```
-node examples/web3/<SCRIPT>
+cd examples/web3
+node <SCRIPT>
 ```
 
 e.g.
