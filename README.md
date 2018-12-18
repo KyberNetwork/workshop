@@ -262,4 +262,47 @@ Contracts
 (**SwapTokenToToken**) 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8<br />
 (**Trade**) 0x295631209354194B6453921bfFeFEe79cD42BdB9
 
-**NOTE:** The `KyberReserve` and `AutomatedKyberReserve` are the same contracts. A duplicate was made as a workaround due to a limitation of Truffle where only one instance of a contract can be migrated.
+**NOTE:** The `KyberReserve` and `AutomatedKyberReserve` are the same contracts. A duplicate was made as a workaround due to a limitation of Truffle where only one instance of a contract can be migrated. Kyber has two types of reserves, manual and automated, which you can read more about [here](https://developer.kyber.network/docs/ReservesUseCase/).
+
+## How to add a new ERC20 token with rates for initial migration
+
+### Manual Reserve
+
+#### 1. Create your ERC20 token contract
+
+Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply.
+
+#### 2. Set the sanity rate of your token in the network.json config file
+
+In `config/network.json`, under the `SanityRates` section, add the sanity rate of your token. Make sure the identifier is in the format <token symbol>SanityRate (e.g. NEWSanityRate).
+
+You can leave the `reasonableDiff` as is. This field, which is the reasonable conversion rate difference in BPS, means is that any conversion rate outside of this range is considered unreasonable, and will not execute.
+
+```json
+"SanityRates": {
+  "reasonableDiff": 1000,
+  "NEWSanityRate": 1840144285714286
+}
+```
+
+You can read more about sanity rates [here](https://developer.kyber.network/docs/MiscellaneousGuide/#sanity-rates/).
+
+#### 3. Set the BaseBuy and BaseSell rates of your token in the network.json config file
+
+In `config/network.json`, under the `ConversionRates` section, add the desired conversion rates of your token with respect to ETH. Make sure the identifier is in the format <token symbol>BaseBuy (e.g. NEWBaseBuy) and <token symbol>BaseSell (e.g. NEWBaseSell).
+
+You can leave `validDurationBlock` and `bytes14` as is.
+
+```json
+"ConversionRates": {
+  "validDurationBlock": 1000000000,
+  "bytes14": "0x0000000000000000000000000000",
+  "NEWBaseBuy": "500000000000000000000",
+  "NEWBaseSell": "2000000000000000"
+}
+```
+You can read more about these fields in the [reserve setup guide](https://developer.kyber.network/docs/ReservesGuide/).
+
+### Automated Reserve
+
+#### 1. Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply.
