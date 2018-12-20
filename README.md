@@ -40,13 +40,13 @@ sudo npm install -g ganache-cli
 
 3. Truffle
 
-Install the latest Truffle v5 beta.
+Install the latest Truffle v5.
 
 ```
-sudo npm install -g truffle@5.0.0-beta.1
+sudo npm install -g truffle@latest
 ```
 
-Truffle v5.0 is needed in order to take advantage of new features, such as using async/await in the migration scripts. You can read more about the new features in the [Truffle release page](https://github.com/trufflesuite/truffle/releases/tag/v5.0.0-beta.0/)
+Truffle v5.0 is needed in order to take advantage of new features, such as using async/await in the migration scripts. You can read more about the new features in the [Truffle release page](https://github.com/trufflesuite/truffle/releases/tag/v5.0.0)
 
 4. Install the rest of the NPM packages
 
@@ -146,7 +146,9 @@ workshop<br />
 │   └── 16_deployment_summary.js<br />
 ├── package.json<br />
 ├── README.md<br />
-├── test<br />
+├── scripts
+│   ├── get_liquidity_params.py
+│   └── liquidity_input_params.json
 └── truffle.js
 
 ### Directory Details

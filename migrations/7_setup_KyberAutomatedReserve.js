@@ -34,7 +34,7 @@ module.exports = async (deployer, network, accounts) => {
     await AutomatedReserveInstance.setContracts(
       Network.address,
       LiquidityConversionRates.address,
-      0,
+      '0x0000000000000000000000000000000000000000',
     ),
     'setContracts()',
   );

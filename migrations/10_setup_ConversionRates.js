@@ -1,6 +1,5 @@
 /* global artifacts */
 /* eslint-disable no-unused-vars, no-eval */
-const BN = require('bn.js');
 const fs = require('fs');
 
 const ConversionRates = artifacts.require('./ConversionRates.sol');
