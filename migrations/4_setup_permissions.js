@@ -5,6 +5,7 @@ const ConversionRates = artifacts.require('./ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
 const Reserve = artifacts.require('./KyberReserve.sol');
 const AutomatedReserve = artifacts.require('./KyberAutomatedReserve.sol');
+const OrderbookReserveLister = artifacts.require('./permissionless/PermissionlessOrderbookReserveLister.sol');
 const FeeBurner = artifacts.require('./FeeBurner.sol');
 const WhiteList = artifacts.require('./WhiteList.sol');
 const ExpectedRate = artifacts.require('./ExpectedRate.sol');
@@ -38,12 +39,14 @@ module.exports = async (deployer, network, accounts) => {
 
   // Set permissions of contracts
   tx(await NetworkInstance.addOperator(operator), 'addOperator()');
+  tx(await NetworkInstance.addOperator(OrderbookReserveLister.address), 'addOperator()');
   tx(await ConversionRatesInstance.addOperator(operator), 'addOperator()');
   tx(await ReserveInstance.addOperator(operator), 'addOperator()');
   tx(await ReserveInstance.addAlerter(alerter), 'addAlerter()');
   tx(await AutomatedReserveInstance.addOperator(operator), 'addOperator()');
   tx(await AutomatedReserveInstance.addAlerter(alerter), 'addAlerter()');
   tx(await FeeBurnerInstance.addOperator(operator), 'addOperator()');
+  tx(await FeeBurnerInstance.addOperator(OrderbookReserveLister.address), 'addOperator()');
   tx(await WhiteListInstance.addOperator(operator), 'addOperator()');
   tx(await ExpectedRateInstance.addOperator(operator), 'addOperator()');
   tx(await SanityRatesInstance.addOperator(operator), 'addOperator()');

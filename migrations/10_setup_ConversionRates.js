@@ -38,7 +38,7 @@ module.exports = async (deployer, network, accounts) => {
   // Set the instances
   const ConversionRatesInstance = await ConversionRates.at(ConversionRates.address);
 
-  Object.keys(tokenConfig.Reserve).forEach(async (key) => {
+  Object.keys(tokenConfig.ManualReserve).forEach(async (key) => {
     // Setup tokenAddresses array for baseBuy and baseSell
     tokenAddresses.push(eval(key).address);
 
@@ -49,9 +49,9 @@ module.exports = async (deployer, network, accounts) => {
     tx(
       await ConversionRatesInstance.setTokenControlInfo(
         eval(key).address,
-        tokenConfig.Reserve[key].minimalRecordResolution,
-        tokenConfig.Reserve[key].maxPerBlockImbalance,
-        tokenConfig.Reserve[key].maxTotalImbalance,
+        tokenConfig.ManualReserve[key].minimalRecordResolution,
+        tokenConfig.ManualReserve[key].maxPerBlockImbalance,
+        tokenConfig.ManualReserve[key].maxTotalImbalance,
       ),
       'setTokenControlInfo()',
     );
@@ -99,7 +99,7 @@ module.exports = async (deployer, network, accounts) => {
   const blockNumber = tx(await ConversionRatesInstance.setReserveAddress(Reserve.address), 'setReserveAddress()');
 
   // Setup baseBuy and baseSell for setting the baseRate of the listed tokens
-  Object.keys(tokenConfig.Reserve).forEach((key) => {
+  Object.keys(tokenConfig.ManualReserve).forEach((key) => {
     baseBuy.push(networkConfig.ConversionRates[`${key}BaseBuy`]);
     baseSell.push(networkConfig.ConversionRates[`${key}BaseSell`]);
     bytes14.push(networkConfig.ConversionRates.bytes14);

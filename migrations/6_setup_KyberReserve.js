@@ -28,6 +28,7 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
+  const operator = accounts[1];
   const reserveWallet = accounts[5];
 
   // Set the instances
@@ -45,9 +46,9 @@ module.exports = async (deployer, network, accounts) => {
   );
 
   // Add reserve to network
-  tx(await NetworkInstance.addReserve(Reserve.address, true), 'addReserve()');
+  tx(await NetworkInstance.addReserve(Reserve.address, false, { from: operator }), 'addReserve()');
 
-  Object.keys(tokenConfig.Reserve).forEach(async (key) => {
+  Object.keys(tokenConfig.ManualReserve).forEach(async (key) => {
     // Add the withdrawal address for each token
     tx(
       await ReserveInstance.approveWithdrawAddress(eval(key).address, reserveWallet, true),
@@ -62,6 +63,7 @@ module.exports = async (deployer, network, accounts) => {
         true,
         true,
         true,
+        { from: operator },
       ),
       'listPairForReserve()',
     );

@@ -1,5 +1,8 @@
 /* global artifacts */
 /* eslint-disable no-unused-vars */
+const BN = require('bn.js');
+const fs = require('fs');
+
 const Network = artifacts.require('./KyberNetwork.sol');
 const NetworkProxy = artifacts.require('./KyberNetworkProxy.sol');
 const ConversionRates = artifacts.require('./ConversionRates.sol');
@@ -7,19 +10,31 @@ const LiquidityConversionRates = artifacts.require('./LiquidityConversionRates.s
 const SanityRates = artifacts.require('./SanityRates.sol');
 const Reserve = artifacts.require('./KyberReserve.sol');
 const AutomatedReserve = artifacts.require('./KyberAutomatedReserve.sol');
+const OrderListFactory = artifacts.require('./permissionless/OrderListFactory.sol');
+const OrderbookReserveLister = artifacts.require('./permissionless/PermissionlessOrderbookReserveLister.sol');
 const FeeBurner = artifacts.require('./FeeBurner.sol');
 const WhiteList = artifacts.require('./WhiteList.sol');
 const ExpectedRate = artifacts.require('./ExpectedRate.sol');
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const KGT = artifacts.require('./mockTokens/KyberGenesisToken.sol');
+const MANA = artifacts.require('./mockTokens/Mana.sol');
+const MockMedianizer = artifacts.require('./mockContracts/MockMedianizer.sol');
 const SwapEtherToToken = artifacts.require('./examples/SwapEtherToToken.sol');
 const SwapTokenToEther = artifacts.require('./examples/SwapTokenToEther.sol');
 const SwapTokenToToken = artifacts.require('./examples/SwapTokenToToken.sol');
 const Trade = artifacts.require('./examples/Trade.sol');
-const MANA = artifacts.require('./mockTokens/Mana.sol');
+
+const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 
 module.exports = async (deployer, network, accounts) => {
   const admin = accounts[0];
+  const kncRate = new BN(networkConfig.FeeBurner.kncRate).mul(new BN(10).pow(new BN(18)));
+  const dollarsPerETH = new BN(
+    networkConfig.MockMedianizer.DollarPerETH,
+  ).mul(new BN(10).pow(new BN(18)));
+
+  // Deploy the mock contracts
+  await deployer.deploy(MockMedianizer, dollarsPerETH);
 
   // Deploy the contracts
   await deployer.deploy(Network, admin);
@@ -29,7 +44,18 @@ module.exports = async (deployer, network, accounts) => {
   await deployer.deploy(SanityRates, admin);
   await deployer.deploy(Reserve, Network.address, ConversionRates.address, admin);
   await deployer.deploy(AutomatedReserve, Network.address, LiquidityConversionRates.address, admin);
-  await deployer.deploy(FeeBurner, admin, KNC.address, Network.address);
+  await deployer.deploy(OrderListFactory);
+  await deployer.deploy(
+    OrderbookReserveLister,
+    Network.address,
+    OrderListFactory.address,
+    MockMedianizer.address,
+    KNC.address,
+    networkConfig.PermissionlessOrderbookReserveLister.unsupportedTokens,
+    networkConfig.PermissionlessOrderbookReserveLister.maxOrders,
+    networkConfig.PermissionlessOrderbookReserveLister.minOrderValueUsd,
+  );
+  await deployer.deploy(FeeBurner, admin, KNC.address, Network.address, kncRate);
   await deployer.deploy(WhiteList, admin, KGT.address);
   await deployer.deploy(ExpectedRate, Network.address, admin);
 

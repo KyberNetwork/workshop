@@ -5,7 +5,7 @@
   },
   "FeeBurner": {
     "reserveFees": 25,
-    "kncRate": 500,
+    "kncRate": 600,
     "taxFeesBPS": 2000
   },
   "ExpectedRate": {
@@ -41,6 +41,14 @@
     "SALTBaseSell": "1999052700000000",
     "ZILBaseBuy": "6117163764686418861883",
     "ZILBaseSell": "161432777777778"
+  },
+  "PermissionlessOrderbookReserveLister": {
+    "unsupportedTokens": [],
+    "maxOrders": 32,
+    "minOrderValueUsd": 1000
+  },
+  "MockMedianizer": {
+    "DollarPerETH": 150
   },
   "feeSharingWallets": {
     "bob": {

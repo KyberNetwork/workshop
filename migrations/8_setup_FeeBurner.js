@@ -3,6 +3,7 @@
 const fs = require('fs');
 
 const Reserve = artifacts.require('./KyberReserve.sol');
+const AutomatedReserve = artifacts.require('./KyberAutomatedReserve.sol');
 const FeeBurner = artifacts.require('./FeeBurner.sol');
 
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
@@ -21,24 +22,36 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
+  const operator = accounts[1];
   const reserveWallet = accounts[5];
   const taxWallet = accounts[6];
 
   // Set the instances
   const FeeBurnerInstance = await FeeBurner.at(FeeBurner.address);
 
-  // Set the reserve data
+  // Set the manual reserve data
   tx(
     await FeeBurnerInstance.setReserveData(
       Reserve.address,
       networkConfig.FeeBurner.reserveFees,
       reserveWallet,
+      { from: operator },
     ),
     'setReserveData()',
   );
 
-  // Set the burn fees, tax fees in base points, and tax wallet
-  tx(await FeeBurnerInstance.setKNCRate(networkConfig.FeeBurner.kncRate), 'setKNCRate()');
+  // Set the automated reserve data
+  tx(
+    await FeeBurnerInstance.setReserveData(
+      AutomatedReserve.address,
+      networkConfig.FeeBurner.reserveFees,
+      reserveWallet,
+      { from: operator },
+    ),
+    'setReserveData()',
+  );
+
+  // Set tax fees in base points and tax wallet
   tx(await FeeBurnerInstance.setTaxInBps(networkConfig.FeeBurner.taxFeesBPS), 'setTaxInBps()');
   tx(await FeeBurnerInstance.setTaxWallet(taxWallet), 'setTaxWallet()');
 

@@ -35,7 +35,7 @@ module.exports = async (deployer, network, accounts) => {
   const SanityRatesInstance = await SanityRates.at(SanityRates.address);
 
   // Set the input arrays
-  Object.keys(tokenConfig.Reserve).forEach((key) => {
+  Object.keys(tokenConfig.ManualReserve).forEach((key) => {
     reasonableDiffs.push(networkConfig.SanityRates.reasonableDiff);
     sanityRates.push(networkConfig.SanityRates[`${key}SanityRate`].toString());
     tokens.push(eval(key).address);

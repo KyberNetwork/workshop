@@ -90,8 +90,18 @@ workshop<br />
 │   │   ├── Mana.sol<br />
 │   │   ├── OmiseGo.sol<br />
 │   │   ├── Salt.sol<br />
+│   │   ├── Status.sol<br />
 │   │   └── Zilliqa.sol<br />
 │   ├── PermissionGroups.sol<br />
+│   ├── permissionless<br />
+│   │   ├── OrderbookReserveInterface.sol<br />
+│   │   ├── OrderbookReserve.sol<br />
+│   │   ├── OrderIdManager.sol<br />
+│   │   ├── OrderListFactoryInterface.sol<br />
+│   │   ├── OrderListFactory.sol<br />
+│   │   ├── OrderListInterface.sol<br />
+│   │   ├── OrderList.sol<br />
+│   │   └── PermissionlessOrderbookReserveLister.sol<br />
 │   ├── SanityRatesInterface.sol<br />
 │   ├── SanityRates.sol<br />
 │   ├── SimpleNetworkInterface.sol<br />
@@ -142,14 +152,15 @@ workshop<br />
 │   ├── 12_setup_SanityRates.js<br />
 │   ├── 13_setup_WhiteList.js<br />
 │   ├── 14_setup_KyberNetwork.js<br />
-│   ├── 15_transfer_tokens.js<br />
-│   └── 16_deployment_summary.js<br />
+│   ├── 15_add_OrderbookReserve.js<br />
+│   ├── 16_transfer_tokens.js<br />
+│   └── 17_deployment_summary.js<br />
 ├── package.json<br />
 ├── README.md<br />
-├── scripts
-│   ├── get_liquidity_params.py
-│   └── liquidity_input_params.json
-└── truffle.js
+├── scripts<br />
+│   ├── get_liquidity_params.py<br />
+│   └── liquidity_input_params.json<br />
+└── truffle.js<br />
 
 ### Directory Details
 
@@ -224,45 +235,55 @@ development
 
 Permissions
 ==================
-(**admin**) 0x2B522cABE9950D1153c26C1b399B293CaA99FcF9<br />
-(**operator**) 0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09<br />
-(**alerter**) 0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E
+| ENTITY       | ADDRESS                                    |
+| :----------: | :----------------------------------------: |
+| **admin**    | 0x2B522cABE9950D1153c26C1b399B293CaA99FcF9 |
+| **operator** | 0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09 |
+| **alerter**  | 0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E |
 
 
 Wallets
 ==================
-(**user**) 0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2<br />
-(**reserve**) 0x0d95EBB4874f17157e40635C19dBC6E9b0BFdb03<br />
-(**tax**) 0x5243B5970f327c328B2739dEc88abC46FaE8931A<br />
-(**bob**) 0xe1a1d3637eE02391ac4035e72456Ca7448c73FD4<br />
-(**alice**) 0x1cF1919d91cebAb2E56a5c0cC7180bB54eD4f3F6
+| WALLET      | ADDRESS                                    |
+| :---------: | :----------------------------------------: |
+| **user**    | 0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2 |
+| **reserve** | 0x0d95EBB4874f17157e40635C19dBC6E9b0BFdb03 |
+| **tax**     | 0x5243B5970f327c328B2739dEc88abC46FaE8931A |
+| **bob**     | 0xe1a1d3637eE02391ac4035e72456Ca7448c73FD4 |
+| **alice**   | 0x1cF1919d91cebAb2E56a5c0cC7180bB54eD4f3F6 |
 
 
 Tokens
 ==================
-(**KNC**) 0x8c13AFB7815f10A8333955854E6ec7503eD841B7<br />
-(**OMG**) 0x3750bE154260872270EbA56eEf89E78E6E21C1D9<br />
-(**SALT**) 0x7ADc6456776Ed1e9661B3CEdF028f41BD319Ea52<br />
-(**ZIL**) 0x400DB523AA93053879b20F10F56023b2076aC852<br />
-(**MANA**) 0xe19Ec968c15f487E96f631Ad9AA54fAE09A67C8c
+| TOKEN    | ADDRESS                                    |
+| :------: | :----------------------------------------: |
+| **KNC**  | 0x8c13AFB7815f10A8333955854E6ec7503eD841B7 |
+| **OMG**  | 0x3750bE154260872270EbA56eEf89E78E6E21C1D9 |
+| **SALT** | 0x7ADc6456776Ed1e9661B3CEdF028f41BD319Ea52 |
+| **ZIL**  | 0x400DB523AA93053879b20F10F56023b2076aC852 |
+| **MANA** | 0xe19Ec968c15f487E96f631Ad9AA54fAE09A67C8c |
+| **SNT**  | 0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45 |
 
 
 Contracts
 ==================
-(**KyberNetwork**) 0xA46E01606f9252fa833131648f4D855549BcE9D9<br />
-(**KyberNetworkProxy**) 0xF6084Ad447076da0246cD28e104533f9f51dbD2F<br />
-(**ConversionRates**) 0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64<br />
-(**LiquidityConversionRates**) 0xd44B9352e4Db6d0640449ed653983827BD882885<br />
-(**SanityRates**) 0xd3add19ee7e5287148a5866784aE3C55bd4E375A<br />
-(**KyberReserve**) 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167<br />
-(**AutomatedKyberReserve**) 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C<br />
-(**FeeBurner**) 0xf71D305142eC1aC03896526D52F743959db01624<br />
-(**WhiteList**) 0x63D556067eDbCD97ACc3356314398F70d4CcF948<br />
-(**ExpectedRate**) 0xE16d27F08e94D9d6f05C988169E388068C790B75<br />
-(**SwapEtherToToken**) 0x19F18bde9896890f161DeD31B05b58dc0ffD911b<br />
-(**SwapTokenToEther**) 0xdE4e2118f45f1b27699B25004563819B57f5E3b2<br />
-(**SwapTokenToToken**) 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8<br />
-(**Trade**) 0x295631209354194B6453921bfFeFEe79cD42BdB9
+| CONTRACT                                 | ADDRESS                                    |
+| :--------------------------------------: | :----------------------------------------: |
+| **KyberNetwork**                         | 0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64 |
+| **KyberNetworkProxy**                    | 0xd44B9352e4Db6d0640449ed653983827BD882885 |
+| **ConversionRates**                      | 0xd3add19ee7e5287148a5866784aE3C55bd4E375A |
+| **LiquidityConversionRates**             | 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167 |
+| **SanityRates**                          | 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C |
+| **KyberReserve**                         | 0xf71D305142eC1aC03896526D52F743959db01624 |
+| **AutomatedKyberReserve**                | 0x63D556067eDbCD97ACc3356314398F70d4CcF948 |
+| **PermissionlessOrderbookReserveLister** | 0x19F18bde9896890f161DeD31B05b58dc0ffD911b |
+| **FeeBurner**                            | 0xdE4e2118f45f1b27699B25004563819B57f5E3b2 |
+| **WhiteList**                            | 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8 |
+| **ExpectedRate**                         | 0x295631209354194B6453921bfFeFEe79cD42BdB9 |
+| **SwapEtherToToken**                     | 0x5a8665AbbDe3986687494176e22d38B169EA1eab |
+| **SwapTokenToEther**                     | 0xB4c927fC102547e4089b02caE5E92d866F63bFE6 |
+| **SwapTokenToToken**                     | 0x47bC234Bf1F1436A794DF0a9FcA2935ea384629E |
+| **Trade**                                | 0x6aBd125bcc68012197D81a92B4A56307177e0DBD |
 
 **NOTE:** The `KyberReserve` and `AutomatedKyberReserve` are the same contracts. A duplicate was made as a workaround due to a limitation of Truffle where only one instance of a contract can be migrated. Kyber has two types of reserves, manual and automated, which you can read more about [here](https://developer.kyber.network/docs/ReservesUseCase/).
 
@@ -307,4 +328,153 @@ You can read more about these fields in the [reserve setup guide](https://develo
 
 ### Automated Reserve
 
-#### 1. Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply.
+#### 1. Create your ERC20 token contract
+
+Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply.
+
+#### 2: Defining the network address, permissions, and withdrawal wallet
+
+Modify the file `config/network.json` and specify the addresses for the different properties.
+
+```json
+{
+  "KyberNetwork": {
+    "address": "0xA46E01606f9252fa833131648f4D855549BcE9D9"
+  },
+  "KyberReserve": {
+    "admin": "0x2B522cABE9950D1153c26C1b399B293CaA99FcF9",
+    "alerter": "0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E",
+    "operator": "0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09",
+    "withdrawWallet": "0x2B522cABE9950D1153c26C1b399B293CaA99FcF9"
+  }
+}
+```
+
+**KyberNetwork**
+
+| Property  | Explanation |
+| :-------: | :---------: |
+| `address` | Address of the core KyberNetwork contract. |
+
+**KyberReserve**
+
+| Property  | Explanation |
+| :-------: | :---------: |
+| `admin`   | Wallet address (usually a cold wallet) that handles infrequent, manual operations like calling `setLiquidityParams().` |
+| `alerter` | The alerter account is used to halt the operation of the reserve on alerting conditions (e.g. strange conversion rates). In such cases, the reserve operation can be resumed only by the admin account. |
+| `operator` | The operator account is used for withdrawing funds from the reserve to certain destinations (e.g. when selling excess tokens in the open market). |
+| `withdrawWallet` | Wallet address where the ETH or tokens will be withdrawn to when initiated by the operator. |
+
+We recommend that you use different addresses for the admin, alerter, and operator roles. It is highly recommended that for sensitive contracts like the reserve, a cold wallet is used as the admin wallet. Notice: It is possible to have multiple operators and alerters, but there can only be 1 admin.
+
+The withdrawal wallet address is defined for the token by the admin. Additional withdrawal addresses can be defined using the contract function `approveWithdrawAddress()`. Note that the **token you wish to support must have withdraw addresses**.
+
+#### 3. Defining the liquidity parameters of the token
+
+Modify the file `config/tokens.json` and specify the information for the different properties.
+
+```json
+{
+  "AutomatedReserve": {
+    "Token": {
+      "address": "0xe19Ec968c15f487E96f631Ad9AA54fAE09A67C8c",
+      "_rInFp": "10995116277",
+      "_pMinInFp": "27487790",
+      "_numFpBits": "40",
+      "_maxCapBuyInWei": "5000000000000000000",
+      "_maxCapSellInWei": "5000000000000000000",
+      "_feeInBps": "25",
+      "_maxTokenToEthRateInPrecision": "100000000000000",
+      "_minTokenToEthRateInPrecision": "25000000000000",
+      "Ether": "100",
+      "Tokens": "2000000",
+      "ABI": [{"constant":true,"inputs":[],"name":"mintingFinished","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x05d2035b"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x06fdde03"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x095ea7b3"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x18160ddd"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x23b872dd"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x313ce567"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"mint","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x40c10f19"},{"constant":false,"inputs":[{"name":"_value","type":"uint256"}],"name":"burn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x42966c68"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_subtractedValue","type":"uint256"}],"name":"decreaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x66188463"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x70a08231"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x715018a6"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_value","type":"uint256"}],"name":"burnFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x79cc6790"},{"constant":false,"inputs":[],"name":"finishMinting","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x7d64bcb4"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x8da5cb5b"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x95d89b41"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa9059cbb"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_addedValue","type":"uint256"}],"name":"increaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xd73dd623"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xdd62ed3e"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xf2fde38b"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor","signature":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Mint","type":"event","signature":"0x0f6798a560793a54c3bcfe86a93cde1e73087d944c0ea20544137d4121396885"},{"anonymous":false,"inputs":[],"name":"MintFinished","type":"event","signature":"0xae5184fba832cb2b1f702aca6117b8d265eaf03ad33eb133f19dde0f5920fa08"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"}],"name":"OwnershipRenounced","type":"event","signature":"0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event","signature":"0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"},{"anonymous":false,"inputs":[{"indexed":true,"name":"burner","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Burn","type":"event","signature":"0xcc16f5dbb4873280815c1ee09dbd06736cffcc184412cf7a71a0fdb75d397ca5"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event","signature":"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event","signature":"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"}]
+    }
+  }
+}
+```
+
+**AutomatedReserve.Token**
+
+| Property    | Explanation |
+| :---------: | :---------: |
+| `address`   | ERC20 token address that will be supported by the automated reserve. |
+| `_rInFp`    | r in formula precision, calculated as r * InFp. |
+| `_pMinInFp` | Minimum supported price factor in formula precision, calculated as min price factor * initial price of your token * InFp. |
+| `_numFpBits` | The formula precision in bits, therefore for formula precision of 2^40, _numFpBits is 40. |
+| `_maxCapBuyInWei` | The allowed quantity for one BUY trade in ETH. |
+| `_maxCapSellInWei` | The allowed quantity for one SELL trade in ETH. |
+| `_feeInBps` | The fee amount in basis points (1 bp = 0.01%) that should be calculated in the price. |
+| `_maxTokenToEthRateInPrecision` | The maximum allowed price taking into consideration the maximum supported price factor and must be in 10^18. |
+| `_minTokenToEthRateInPrecision` | The minimum allowed price taking into consideration the minimum supported price factor and must be in 10^18. |
+| `Ether` | The amount of initial ETH inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH. |
+| `Tokens` | The amount of initial token inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH worth of tokens. |
+| `ABI` | The ERC20 token's ABI. |
+<br />
+
+The function that will be invoked to set liquidity parameters is:
+
+function __setLiquidityParams__(uint \_rInFp, uint \_pMinInFp, uint \_numFpBits, uint \_maxCapBuyInWei, uint \_maxCapSellInWei, uint \_feeInBps, uint \_maxTokenToEthRateInPrecision, uint \_minTokenToEthRateInPrecision) public onlyAdmin
+
+| Type      | Parameter                     |
+| :-------: | :---------------------------: |
+| `uint`    | _rInFp                        |
+| `uint`    | _pMinInFp                     |
+| `uint`    | _numFpBits                    |
+| `uint`    | _maxCapBuyInWei               |
+| `uint`    | _maxCapSellInWei              |
+| `uint`    | _feeInBps                     |
+| `uint`    | _maxTokenToEthRateInPrecision |
+| `uint`    | _minTokenToEthRateInPrecision |
+
+The reserve manager needs to only decide on the initial liquidity parameters of the automated reserve. Specifically, the following information need to be considered and to calculate the parameters above:
+
+1. Liquidity Rate
+2. Initial Token Price
+3. Initial Ether Amount
+4. Initial Token Amount
+5. Minimum and Maximum Supported Price Factor
+6. Maximum Buy and Maximum Sell Amount in a Trade
+7. Fee Percentage
+
+There are several things to take note of in the list of parameters.
+
+First, notice that some parameters will have the **InFp** suffix. InFp refers to formula precision. While this is configurable, 2^40 is the recommended value.
+
+Second, **r** is liquidity the rate in basis points or units of 100 which the price should move each time the ETH/token inventory changes in 1 ETH worth of quantity. For an r of 0.01, the price will move 1%. r is calculated taking into account the amount of initial ETH and tokens deposited into the contract, and the desired minimum/maximum price factor ratio. A smaller r also means more ETH and token inventory is needed to facilitate the liquidity.
+
+For the **minimum/maximum supported price factor ratio**, it is recommended to start with a ratio of 0.5:2.0. This indicates that the inventory will suffice for up to 100% increase or 50% decrease in token price with respect to ETH.
+
+
+##### Example
+
+Now, Let's assume we want to list a token with the following considerations:
+
+1. Liquidity Rate – 0.01 (1%)
+2. Initial Token Price – 1 token = 0.00005 ETH
+3. Initial Ether Amount – 100 ETH
+4. Initial Token Amount – 2,000,000 tokens (100 ETH worth)
+5. Minimum (pMin) and Maximum (pMax) Supported Price Factor – 0.5:2.0
+6. Maximum Buy and Maximum Sell Amount in a Trade – 5 ETH max buy and sell cap
+7. Fee Percentage – 0.25%
+
+Below, we will calculate the different parameters.
+
+| Parameter          | Formula                                   | Example Value                                            |
+| :----------------: | :---------------------------------------: | :------------------------------------------------------: |
+| `_rInFp`           | r * InFp                                  | _rInFp = (0.01 * 2^40) = **10995116277**                 |
+| `_pMinInFp`        | pMin * initial price of token * InFp      | _pMinInFp = (0.5 * 0.00005 * 2^40) = **27487790**        |
+| `_numFpBits`       | InFp in numFpBits                         | _numFpBits = **40**                                      |
+| `_maxCapBuyInWei`  | max buy cap * 10^18                       | _maxCapBuyInWei = (5 * 10^18) = **5000000000000000000**  |
+| `_maxCapSellInWei` | max sell cap * 10^18                      | _maxCapSellInWei = (5 * 10^18) = **5000000000000000000** |
+| `_feeInBps`        | fee percentage in BPS                     | _feeInBps = **25**                                       |
+| `_maxTokenToEthRateInPrecision` | pMax * initial price of token * 10^18 | _maxTokenToEthRateInPrecision = (2.0 * 0.00005 * 10^18) = **100000000000000** |
+| `_minTokenToEthRateInPrecision` | pMin * initial price of token * 10^18 | _minTokenToEthRateInPrecision = (0.5 * 0.00005 * 10^18) = **25000000000000** |
+
+#### 4. Run the Truffle migration using the command above
+
+With Ganache running, execute:
+
+```
+truffle migrate --network development
+```

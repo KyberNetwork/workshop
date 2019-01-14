@@ -28,13 +28,12 @@ function tx(result, call) {
 module.exports = async (deployer, network, accounts) => {
   const admin = accounts[0];
 
-  const AutomatedReserveInstance = await AutomatedReserve.at(AutomatedReserve.address);
-  const MANAInstance = await MANA.at(MANA.address);
-
   // Set the instances
   const LiquidityConversionRatesInstance = await LiquidityConversionRates.at(
     LiquidityConversionRates.address,
   );
+  const AutomatedReserveInstance = await AutomatedReserve.at(AutomatedReserve.address);
+  const MANAInstance = await MANA.at(MANA.address);
 
   // Set the automated reserve address
   tx(await LiquidityConversionRatesInstance.setReserveAddress(AutomatedReserve.address), 'setReserveAddress()');
