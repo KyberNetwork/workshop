@@ -48,7 +48,7 @@ module.exports = async (deployer, network, accounts) => {
   // Add reserve to network
   tx(await NetworkInstance.addReserve(Reserve.address, false, { from: operator }), 'addReserve()');
 
-  Object.keys(tokenConfig.ManualReserve).forEach(async (key) => {
+  Object.keys(tokenConfig.FedPriceReserve).forEach(async (key) => {
     // Add the withdrawal address for each token
     tx(
       await ReserveInstance.approveWithdrawAddress(eval(key).address, reserveWallet, true),

@@ -3,7 +3,6 @@
 const BN = require('bn.js');
 const moment = require('moment');
 
-const Network = artifacts.require('./KyberNetwork.sol');
 const NetworkProxy = artifacts.require('./KyberNetworkProxy.sol');
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const OMG = artifacts.require('./mockTokens/OmiseGo.sol');
@@ -66,7 +65,7 @@ module.exports = async (callback) => {
     userWallet, // destAddress
     web3.utils.toWei(new BN(1000000)), // maxDestAmount
     expectedRate, // minConversionRate
-    0, // walletId
+    '0x0000000000000000000000000000000000000000', // walletId
     { from: userWallet },
   );
   tx(result, 'KNC <-> OMG trade()');
@@ -84,7 +83,7 @@ module.exports = async (callback) => {
     userWallet, // destAddress
     web3.utils.toWei(new BN(1000000)), // maxDestAmount
     expectedRate, // minConversionRate
-    0, // walletId
+    '0x0000000000000000000000000000000000000000', // walletId
     { from: userWallet },
   );
   tx(result, 'KNC <-> MANA trade()');

@@ -75,10 +75,12 @@ workshop<br />
 │   ├── ExpectedRate.sol<br />
 │   ├── FeeBurnerInterface.sol<br />
 │   ├── FeeBurner.sol<br />
+│   ├── KyberAutomatedReserve.sol<br />
 │   ├── KyberNetworkInterface.sol<br />
 │   ├── KyberNetworkProxyInterface.sol<br />
 │   ├── KyberNetworkProxy.sol<br />
 │   ├── KyberNetwork.sol<br />
+│   ├── KyberOrderbookReserve.sol<br />
 │   ├── KyberReserveInterface.sol<br />
 │   ├── KyberReserve.sol<br />
 │   ├── LiquidityConversionRates.sol<br />
@@ -89,6 +91,7 @@ workshop<br />
 │   │   ├── KyberNetworkCrystal.sol<br />
 │   │   ├── Mana.sol<br />
 │   │   ├── OmiseGo.sol<br />
+│   │   ├── Polymath.sol<br />
 │   │   ├── Salt.sol<br />
 │   │   ├── Status.sol<br />
 │   │   └── Zilliqa.sol<br />
@@ -145,16 +148,17 @@ workshop<br />
 │   ├── 5_setup_KyberNetworkProxy.js<br />
 │   ├── 6_setup_KyberReserve.js<br />
 │   ├── 7_setup_KyberAutomatedReserve.js<br />
-│   ├── 8_setup_FeeBurner.js<br />
-│   ├── 9_setup_ExpectedRate.js<br />
-│   ├── 10_setup_ConversionRates.js<br />
-│   ├── 11_setup_LiquidityConversionRates.js<br />
-│   ├── 12_setup_SanityRates.js<br />
-│   ├── 13_setup_WhiteList.js<br />
-│   ├── 14_setup_KyberNetwork.js<br />
-│   ├── 15_add_OrderbookReserve.js<br />
-│   ├── 16_transfer_tokens.js<br />
-│   └── 17_deployment_summary.js<br />
+│   ├── 8_setup_KyberOrderbookReserve.js<br />
+│   ├── 9_setup_FeeBurner.js<br />
+│   ├── 10_setup_ExpectedRate.js<br />
+│   ├── 11_setup_ConversionRates.js<br />
+│   ├── 12_setup_LiquidityConversionRates.js<br />
+│   ├── 13_setup_SanityRates.js<br />
+│   ├── 14_setup_WhiteList.js<br />
+│   ├── 15_setup_KyberNetwork.js<br />
+│   ├── 16_add_PermissionlessOrderbookReserve.js<br />
+│   ├── 17_transfer_tokens.js<br />
+│   └──  18_deployment_summary.js<br />
 ├── package.json<br />
 ├── README.md<br />
 ├── scripts<br />
@@ -182,7 +186,7 @@ We use the mnemonic `gesture rather obey video awake genuine patient base soon p
 To run the snapshot locally, run the command:
 
 ```sh
-ganache-cli --db db --accounts 10 --defaultBalanceEther 500 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
+ganache-cli --db db --accounts 10 --defaultBalanceEther 1000 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
 ```
 
 ### 1B. Run Ganache and deploy the Kyber contracts from scratch
@@ -191,7 +195,7 @@ If you wish to deploy the Kyber contracts yourself, you can run the following co
 
 Run ganache-cli in one terminal session
 ```
-ganache-cli --accounts 10 --defaultBalanceEther 500 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
+ganache-cli --accounts 10 --defaultBalanceEther 1000 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
 ```
 
 In a new terminal session, connect to the ganache network, and run the truffle migration scripts
@@ -262,34 +266,36 @@ Tokens
 | **SALT** | 0x7ADc6456776Ed1e9661B3CEdF028f41BD319Ea52 |
 | **ZIL**  | 0x400DB523AA93053879b20F10F56023b2076aC852 |
 | **MANA** | 0xe19Ec968c15f487E96f631Ad9AA54fAE09A67C8c |
-| **SNT**  | 0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45 |
+| **POLY** | 0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45 |
+| **SNT**  | 0xA46E01606f9252fa833131648f4D855549BcE9D9 |
 
 
 Contracts
 ==================
 | CONTRACT                                 | ADDRESS                                    |
 | :--------------------------------------: | :----------------------------------------: |
-| **KyberNetwork**                         | 0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64 |
-| **KyberNetworkProxy**                    | 0xd44B9352e4Db6d0640449ed653983827BD882885 |
-| **ConversionRates**                      | 0xd3add19ee7e5287148a5866784aE3C55bd4E375A |
-| **LiquidityConversionRates**             | 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167 |
-| **SanityRates**                          | 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C |
-| **KyberReserve**                         | 0xf71D305142eC1aC03896526D52F743959db01624 |
-| **AutomatedKyberReserve**                | 0x63D556067eDbCD97ACc3356314398F70d4CcF948 |
-| **PermissionlessOrderbookReserveLister** | 0x19F18bde9896890f161DeD31B05b58dc0ffD911b |
-| **FeeBurner**                            | 0xdE4e2118f45f1b27699B25004563819B57f5E3b2 |
-| **WhiteList**                            | 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8 |
-| **ExpectedRate**                         | 0x295631209354194B6453921bfFeFEe79cD42BdB9 |
-| **SwapEtherToToken**                     | 0x5a8665AbbDe3986687494176e22d38B169EA1eab |
-| **SwapTokenToEther**                     | 0xB4c927fC102547e4089b02caE5E92d866F63bFE6 |
-| **SwapTokenToToken**                     | 0x47bC234Bf1F1436A794DF0a9FcA2935ea384629E |
-| **Trade**                                | 0x6aBd125bcc68012197D81a92B4A56307177e0DBD |
+| **KyberNetwork**                         | 0xd44B9352e4Db6d0640449ed653983827BD882885 |
+| **KyberNetworkProxy**                    | 0xd3add19ee7e5287148a5866784aE3C55bd4E375A |
+| **ConversionRates**                      | 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167 |
+| **LiquidityConversionRates**             | 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C |
+| **SanityRates**                          | 0xf71D305142eC1aC03896526D52F743959db01624 |
+| **KyberReserve**                         | 0x19F18bde9896890f161DeD31B05b58dc0ffD911b |
+| **KyberAutomatedReserve**                | 0xdE4e2118f45f1b27699B25004563819B57f5E3b2 |
+| **KyberOrderbookReserve**                | 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8 |
+| **PermissionlessOrderbookReserveLister** | 0x295631209354194B6453921bfFeFEe79cD42BdB9 |
+| **FeeBurner**                            | 0x63D556067eDbCD97ACc3356314398F70d4CcF948 |
+| **WhiteList**                            | 0x5a8665AbbDe3986687494176e22d38B169EA1eab |
+| **ExpectedRate**                         | 0xB4c927fC102547e4089b02caE5E92d866F63bFE6 |
+| **SwapEtherToToken**                     | 0x47bC234Bf1F1436A794DF0a9FcA2935ea384629E |
+| **SwapTokenToEther**                     | 0x6aBd125bcc68012197D81a92B4A56307177e0DBD |
+| **SwapTokenToToken**                     | 0xB31b6edd85c386C259FB5488dae8Be4ed82C0778 |
+| **Trade**                                | 0x3f21DD3b2Aca23e495290a8dcb9A934984D93a6c |
 
-**NOTE:** The `KyberReserve` and `AutomatedKyberReserve` are the same contracts. A duplicate was made as a workaround due to a limitation of Truffle where only one instance of a contract can be migrated. Kyber has two types of reserves, manual and automated, which you can read more about [here](https://developer.kyber.network/docs/ReservesUseCase/).
+**NOTE:** The `KyberReserve` and `KyberAutomatedReserve` as well as the `KyberOrderbookReserve` and `OrderbookReserve` are the same contracts. A duplicate was made as a workaround due to a limitation of Truffle where only one instance of a contract can be migrated. Kyber has three types of reserves, the Fed Price Reserve, Automated Price Reserve, and Orderbook Reserve, which you can read more about [here](https://developer.kyber.network/docs/ReservesUseCase/).
 
 ## How to add a new ERC20 token with rates for initial migration
 
-### Manual Reserve
+### Fed Price Reserve
 
 #### 1. Create your ERC20 token contract
 
@@ -326,58 +332,28 @@ You can leave `validDurationBlock` and `bytes14` as is.
 ```
 You can read more about these fields in the [reserve setup guide](https://developer.kyber.network/docs/ReservesGuide/).
 
-### Automated Reserve
+#### 4. Run the Truffle migration
+
+With Ganache running, execute:
+
+```
+truffle migrate --network development --reset
+```
+
+### Automated Price Reserve
 
 #### 1. Create your ERC20 token contract
 
 Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply.
 
-#### 2: Defining the network address, permissions, and withdrawal wallet
+#### 2. Defining the liquidity parameters of the token
 
-Modify the file `config/network.json` and specify the addresses for the different properties.
-
-```json
-{
-  "KyberNetwork": {
-    "address": "0xA46E01606f9252fa833131648f4D855549BcE9D9"
-  },
-  "KyberReserve": {
-    "admin": "0x2B522cABE9950D1153c26C1b399B293CaA99FcF9",
-    "alerter": "0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E",
-    "operator": "0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09",
-    "withdrawWallet": "0x2B522cABE9950D1153c26C1b399B293CaA99FcF9"
-  }
-}
-```
-
-**KyberNetwork**
-
-| Property  | Explanation |
-| :-------: | :---------: |
-| `address` | Address of the core KyberNetwork contract. |
-
-**KyberReserve**
-
-| Property  | Explanation |
-| :-------: | :---------: |
-| `admin`   | Wallet address (usually a cold wallet) that handles infrequent, manual operations like calling `setLiquidityParams().` |
-| `alerter` | The alerter account is used to halt the operation of the reserve on alerting conditions (e.g. strange conversion rates). In such cases, the reserve operation can be resumed only by the admin account. |
-| `operator` | The operator account is used for withdrawing funds from the reserve to certain destinations (e.g. when selling excess tokens in the open market). |
-| `withdrawWallet` | Wallet address where the ETH or tokens will be withdrawn to when initiated by the operator. |
-
-We recommend that you use different addresses for the admin, alerter, and operator roles. It is highly recommended that for sensitive contracts like the reserve, a cold wallet is used as the admin wallet. Notice: It is possible to have multiple operators and alerters, but there can only be 1 admin.
-
-The withdrawal wallet address is defined for the token by the admin. Additional withdrawal addresses can be defined using the contract function `approveWithdrawAddress()`. Note that the **token you wish to support must have withdraw addresses**.
-
-#### 3. Defining the liquidity parameters of the token
-
-Modify the file `config/tokens.json` and specify the information for the different properties.
+Modify the file `config/tokens.json` and add the new token section (replace NEW with the token symbol) for the different properties.
 
 ```json
 {
   "AutomatedReserve": {
-    "Token": {
-      "address": "0xe19Ec968c15f487E96f631Ad9AA54fAE09A67C8c",
+    "NEW": {
       "_rInFp": "10995116277",
       "_pMinInFp": "27487790",
       "_numFpBits": "40",
@@ -388,7 +364,6 @@ Modify the file `config/tokens.json` and specify the information for the differe
       "_minTokenToEthRateInPrecision": "25000000000000",
       "Ether": "100",
       "Tokens": "2000000",
-      "ABI": [{"constant":true,"inputs":[],"name":"mintingFinished","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x05d2035b"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x06fdde03"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x095ea7b3"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x18160ddd"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x23b872dd"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x313ce567"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"mint","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x40c10f19"},{"constant":false,"inputs":[{"name":"_value","type":"uint256"}],"name":"burn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x42966c68"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_subtractedValue","type":"uint256"}],"name":"decreaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x66188463"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x70a08231"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x715018a6"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_value","type":"uint256"}],"name":"burnFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x79cc6790"},{"constant":false,"inputs":[],"name":"finishMinting","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x7d64bcb4"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x8da5cb5b"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x95d89b41"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa9059cbb"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_addedValue","type":"uint256"}],"name":"increaseApproval","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xd73dd623"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xdd62ed3e"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xf2fde38b"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor","signature":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Mint","type":"event","signature":"0x0f6798a560793a54c3bcfe86a93cde1e73087d944c0ea20544137d4121396885"},{"anonymous":false,"inputs":[],"name":"MintFinished","type":"event","signature":"0xae5184fba832cb2b1f702aca6117b8d265eaf03ad33eb133f19dde0f5920fa08"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"}],"name":"OwnershipRenounced","type":"event","signature":"0xf8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c64820"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event","signature":"0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"},{"anonymous":false,"inputs":[{"indexed":true,"name":"burner","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Burn","type":"event","signature":"0xcc16f5dbb4873280815c1ee09dbd06736cffcc184412cf7a71a0fdb75d397ca5"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event","signature":"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event","signature":"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"}]
     }
   }
 }
@@ -398,7 +373,6 @@ Modify the file `config/tokens.json` and specify the information for the differe
 
 | Property    | Explanation |
 | :---------: | :---------: |
-| `address`   | ERC20 token address that will be supported by the automated reserve. |
 | `_rInFp`    | r in formula precision, calculated as r * InFp. |
 | `_pMinInFp` | Minimum supported price factor in formula precision, calculated as min price factor * initial price of your token * InFp. |
 | `_numFpBits` | The formula precision in bits, therefore for formula precision of 2^40, _numFpBits is 40. |
@@ -409,7 +383,6 @@ Modify the file `config/tokens.json` and specify the information for the differe
 | `_minTokenToEthRateInPrecision` | The minimum allowed price taking into consideration the minimum supported price factor and must be in 10^18. |
 | `Ether` | The amount of initial ETH inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH. |
 | `Tokens` | The amount of initial token inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH worth of tokens. |
-| `ABI` | The ERC20 token's ABI. |
 <br />
 
 The function that will be invoked to set liquidity parameters is:
@@ -471,10 +444,126 @@ Below, we will calculate the different parameters.
 | `_maxTokenToEthRateInPrecision` | pMax * initial price of token * 10^18 | _maxTokenToEthRateInPrecision = (2.0 * 0.00005 * 10^18) = **100000000000000** |
 | `_minTokenToEthRateInPrecision` | pMin * initial price of token * 10^18 | _minTokenToEthRateInPrecision = (0.5 * 0.00005 * 10^18) = **25000000000000** |
 
-#### 4. Run the Truffle migration using the command above
+#### Using get_liquidity_params.py Python script
+
+A Python script, located in `scripts/get_liquidity_params.py` in the `smart-contracts` repository, will help you calculate the liquidity parameters. Edit the input file `liquidity_input_params.json`, and specify the inputs similar to the considerations in the example above.
+
+```json
+{
+  "liquidity_rate": 0.01,
+  "initial_ether_amount": 100.0,
+  "initial_token_amount": 2000000,
+  "initial_price":  0.00005,
+  "min_supported_price_factor": 0.5,
+  "max_supported_price_factor" : 2.0,
+  "max_tx_buy_amount_eth": 5.0,
+  "max_tx_sell_amount_eth": 5.0,
+  "fee_percent": 0.25,
+  "formula_precision_bits": 40
+}
+```
+
+Please note that the `formula_precision_bits` refers to `_numFpBits`, which the recommended value is 40.
+
+Afterwards, just execute the Python script, using the following command:
+
+```sh
+python3 get_liquidity_params.py --input liquidity_input_params.json --get params
+```
+
+It should give the following output:
+
+```sh
+_rInFp: 10995116277
+_pMinInFp: 27487790
+_numFpBits: 40
+_maxCapBuyInWei: 5000000000000000000
+_maxCapSellInWei: 5000000000000000000
+_feeInBps: 25
+_maxTokenToEthRateInPrecision: 100000000000000
+_minTokenToEthRateInPrecision: 25000000000000
+```
+
+#### 3. Run the Truffle migration
 
 With Ganache running, execute:
 
 ```
-truffle migrate --network development
+truffle migrate --network development --reset
+```
+
+### Orderbook Reserve
+
+#### 1. Create your ERC20 token contract
+
+Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply.
+
+#### 2. Set the price of USD per ETH
+
+In `config/network.json`, under the `MockMedianizer` section, add the USD price per ETH.
+
+```json
+"MockMedianizer": {
+  "DollarPerETH": 150
+}
+```
+
+#### 3. Set the minimum USD price for new orders, maximum orders to traverse per trade, and fees
+
+In `config/tokens.json`, under the `PermissionedOrderbookReserve` section, add the new token section (replace NEW with the token symbol) for the different properties.
+
+```json
+"PermissionedOrderbookReserve": {
+  "NEW": {
+    "minNewOrderUsd": 1000,
+    "maxOrdersPerTrade": 5,
+    "burnFeeBps": 25,
+    (...)
+  }
+}
+```
+
+| Property            | Explanation                                                                              |
+| :-----------------: | :--------------------------------------------------------------------------------------: |
+| `minNewOrderUsd`    | The minimum limit order size in USD. Creating orders below this limit will be reverted.  |
+| `maxOrdersPerTrade` | The maximum number of orders to traverse (and therefore use) to fulfill 1 trade request. |
+| `burnFeeBps`        | The fee amount in basis points (1 bp = 0.01%) that should be calculated in the price.    |
+<br />
+
+#### 3. Set the initial limit order to the Orderbook Reserve
+
+In `config/tokens.json`, under the `PermissionedOrderbookReserve` section, modify the new token section (replace NEW with the token symbol), as specified in Step 2 above, and indicate the different properties.
+
+```json
+"PermissionedOrderbookReserve": {
+  "NEW": {
+    (...)
+    "KNCStake": "1000",
+    "ETHDeposit": "25",
+    "TokenDeposit": "150000",
+    "ETHSell": "10",
+    "TokenBuy": "12450",
+    "ETHBuy": "10",
+    "TokenSell": "12400"
+  }
+}
+```
+
+| Property       | Explanation                                                      |
+| :------------: | :--------------------------------------------------------------: |
+| `KNCStake`     | The amount of KNC to deposit and stake in the Orderbook Reserve. |
+| `ETHDeposit`   | The amount of ETH to deposit to the Orderbook Reserve.           |
+| `TokenDeposit` | The amount of tokens to deposit to the Orderbook Reserve.        |
+| `ETHSell`      | The amount of ETH to sell in a BID order.                        |
+| `TokenBuy`     | The amount of tokens to buy in a BID order.                      |
+| `ETHBuy`       | The amount of ETH to buy in an ASK order.                        |
+| `TokenSell`    | The amount of tokens to sell in an ASK order.                    |
+<br />
+
+#### 4. Run the Truffle migration
+
+With Ganache running, execute:
+
+```
+truffle migrate --network development --reset
 ```
