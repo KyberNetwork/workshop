@@ -45,13 +45,12 @@ function tx(result, call) {
   console.log();
 }
 
-async function sendTx(txObject) {
+async function sendTx(txObject, txTo) {
   const nonce = await web3.eth.getTransactionCount(userWallet);
   const gas = 500 * 1000;
 
   const txData = txObject.encodeABI();
   const txFrom = userWallet;
-  const txTo = txObject._parent.options.address;
 
   const txParams = {
     from: txFrom,
@@ -96,7 +95,7 @@ async function main() {
     KNC_ADDRESS, // destToken
     expectedRate, // minConversionRate
   );
-  result = await sendTx(txObject);
+  result = await sendTx(txObject, KyberNetworkProxyAddress);
   tx(result, 'ETH <-> KNC swapEtherToToken()');
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
@@ -109,7 +108,7 @@ async function main() {
     MANA_ADDRESS, // destToken
     expectedRate, // minConversionRate
   );
-  result = await sendTx(txObject);
+  result = await sendTx(txObject, KyberNetworkProxyAddress);
   tx(result, 'ETH <-> MANA swapEtherToToken()');
 
   stdlog(`ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`);

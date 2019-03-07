@@ -45,7 +45,7 @@
   },
   "PermissionlessOrderbookReserveLister": {
     "unsupportedTokens": [],
-    "maxOrders": 32,
+    "maxOrdersPerTrade": 5,
     "minOrderValueUsd": 1000
   },
   "MockMedianizer": {
