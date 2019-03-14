@@ -4,11 +4,6 @@ const fs = require('fs');
 
 const SanityRates = artifacts.require('./SanityRates.sol');
 
-const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
-const OMG = artifacts.require('./mockTokens/OmiseGo.sol');
-const SALT = artifacts.require('./mockTokens/Salt.sol');
-const ZIL = artifacts.require('./mockTokens/Zilliqa.sol');
-
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));
 
@@ -26,9 +21,8 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
-  const operator = accounts[1];
+  const { operator } = networkConfig.KyberReserve;
   const reasonableDiffs = [];
-  const sanityRates = [];
   const tokens = [];
 
   // Set the instances
@@ -37,8 +31,7 @@ module.exports = async (deployer, network, accounts) => {
   // Set the input arrays
   Object.keys(tokenConfig.FedPriceReserve).forEach((key) => {
     reasonableDiffs.push(networkConfig.SanityRates.reasonableDiff);
-    sanityRates.push(networkConfig.SanityRates[`${key}SanityRate`].toString());
-    tokens.push(eval(key).address);
+    tokens.push(tokenConfig.FedPriceReserve[key].address);
   });
 
   // Setup the reasonable diffs for all tokens
@@ -48,15 +41,5 @@ module.exports = async (deployer, network, accounts) => {
       reasonableDiffs,
     ),
     'setReasonableDiff()',
-  );
-
-  // Set the sanity rates for all tokens
-  tx(
-    await SanityRatesInstance.setSanityRates(
-      tokens,
-      sanityRates,
-      { from: operator },
-    ),
-    'setSanityRates()',
   );
 };

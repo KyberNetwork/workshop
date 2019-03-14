@@ -5,11 +5,6 @@ const fs = require('fs');
 const ConversionRates = artifacts.require('./ConversionRates.sol');
 const Reserve = artifacts.require('./KyberReserve.sol');
 
-const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
-const OMG = artifacts.require('./mockTokens/OmiseGo.sol');
-const SALT = artifacts.require('./mockTokens/Salt.sol');
-const ZIL = artifacts.require('./mockTokens/Zilliqa.sol');
-
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));
 
@@ -29,10 +24,7 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
-  const operator = accounts[1];
-  const baseBuy = [];
-  const baseSell = [];
-  const bytes14 = [];
+  const { operator } = networkConfig.KyberReserve;
   const tokenAddresses = [];
 
   // Set the instances
@@ -40,15 +32,15 @@ module.exports = async (deployer, network, accounts) => {
 
   Object.keys(tokenConfig.FedPriceReserve).forEach(async (key) => {
     // Setup tokenAddresses array for baseBuy and baseSell
-    tokenAddresses.push(eval(key).address);
+    tokenAddresses.push(tokenConfig.FedPriceReserve[key].address);
 
     // Add the token
-    tx(await ConversionRatesInstance.addToken(eval(key).address), 'addToken()');
+    tx(await ConversionRatesInstance.addToken(tokenConfig.FedPriceReserve[key].address), 'addToken()');
 
     // Set the control info of each token
     tx(
       await ConversionRatesInstance.setTokenControlInfo(
-        eval(key).address,
+        tokenConfig.FedPriceReserve[key].address,
         tokenConfig.FedPriceReserve[key].minimalRecordResolution,
         tokenConfig.FedPriceReserve[key].maxPerBlockImbalance,
         tokenConfig.FedPriceReserve[key].maxTotalImbalance,
@@ -59,7 +51,7 @@ module.exports = async (deployer, network, accounts) => {
     // Set the quantity step function for each token
     tx(
       await ConversionRatesInstance.setQtyStepFunction(
-        eval(key).address,
+        tokenConfig.FedPriceReserve[key].address,
         [0],
         [0],
         [0],
@@ -72,7 +64,7 @@ module.exports = async (deployer, network, accounts) => {
     // Set the imbalance step function for each token
     tx(
       await ConversionRatesInstance.setImbalanceStepFunction(
-        eval(key).address,
+        tokenConfig.FedPriceReserve[key].address,
         [0],
         [0],
         [0],
@@ -94,29 +86,6 @@ module.exports = async (deployer, network, accounts) => {
     'setValidRateDurationInBlocks()',
   );
 
-  // Set the KyberReserve address and use the txReceipt to get the latest block number
-  // for setting the baseRate
-  const blockNumber = tx(await ConversionRatesInstance.setReserveAddress(Reserve.address), 'setReserveAddress()');
-
-  // Setup baseBuy and baseSell for setting the baseRate of the listed tokens
-  Object.keys(tokenConfig.FedPriceReserve).forEach((key) => {
-    baseBuy.push(networkConfig.ConversionRates[`${key}BaseBuy`]);
-    baseSell.push(networkConfig.ConversionRates[`${key}BaseSell`]);
-    bytes14.push(networkConfig.ConversionRates.bytes14);
-  });
-
-  // Set the base rate of each token
-  tx(
-    await ConversionRatesInstance.setBaseRate(
-      tokenAddresses,
-      baseBuy,
-      baseSell,
-      bytes14,
-      bytes14,
-      blockNumber,
-      networkConfig.ConversionRates.indices,
-      { from: operator },
-    ),
-    'setBaseRate()',
-  );
+  // Set the KyberReserve address
+  tx(await ConversionRatesInstance.setReserveAddress(Reserve.address), 'setReserveAddress()');
 };

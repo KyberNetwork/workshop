@@ -2,16 +2,11 @@
 /* eslint-disable no-unused-vars, no-eval */
 const fs = require('fs');
 
-const Network = artifacts.require('./KyberNetwork.sol');
 const ConversionRates = artifacts.require('./ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
 const Reserve = artifacts.require('./KyberReserve.sol');
 
-const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
-const OMG = artifacts.require('./mockTokens/OmiseGo.sol');
-const SALT = artifacts.require('./mockTokens/Salt.sol');
-const ZIL = artifacts.require('./mockTokens/Zilliqa.sol');
-
+const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));
 
 function tx(result, call) {
@@ -28,44 +23,28 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
-  const operator = accounts[1];
-  const reserveWallet = accounts[5];
+  const { alerter, operator } = networkConfig.KyberReserve;
 
   // Set the instances
-  const NetworkInstance = await Network.at(Network.address);
   const ReserveInstance = await Reserve.at(Reserve.address);
 
   // Set the reserve contract addresses
   tx(
     await ReserveInstance.setContracts(
-      Network.address,
+      networkConfig.KyberNetwork.address,
       ConversionRates.address,
       SanityRates.address,
     ),
     'setContracts()',
   );
 
-  // Add reserve to network
-  tx(await NetworkInstance.addReserve(Reserve.address, false, { from: operator }), 'addReserve()');
-
   Object.keys(tokenConfig.FedPriceReserve).forEach(async (key) => {
     // Add the withdrawal address for each token
     tx(
-      await ReserveInstance.approveWithdrawAddress(eval(key).address, reserveWallet, true),
-      'approveWithdrawAddress()',
-    );
-
-    // List token pairs for the reserve
-    tx(
-      await NetworkInstance.listPairForReserve(
-        Reserve.address,
-        eval(key).address,
-        true,
-        true,
-        true,
-        { from: operator },
+      await ReserveInstance.approveWithdrawAddress(
+        tokenConfig.FedPriceReserve[key].address, networkConfig.KyberReserve.withdrawWallet, true,
       ),
-      'listPairForReserve()',
+      'approveWithdrawAddress()',
     );
   });
 };
