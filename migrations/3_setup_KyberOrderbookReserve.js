@@ -1,7 +1,9 @@
 /* global artifacts */
-/* eslint-disable no-unused-vars */
-const Network = artifacts.require('./KyberNetwork.sol');
-const NetworkProxy = artifacts.require('./KyberNetworkProxy.sol');
+/* eslint-disable no-unused-vars, no-eval, no-underscore-dangle */
+const BN = require('bn.js');
+const fs = require('fs');
+
+const OrderbookReserve = artifacts.require('./KyberOrderbookReserve.sol');
 
 function tx(result, call) {
   const logs = (result.logs.length > 0) ? result.logs[0] : { address: null, event: null };
@@ -14,12 +16,17 @@ function tx(result, call) {
   console.log(`   > gas used: ${result.receipt.gasUsed}`);
   console.log(`   > event: ${logs.event}`);
   console.log();
+
+  return result.receipt.blockNumber;
 }
 
-module.exports = async (deployer) => {
+module.exports = async (deployer, network, accounts) => {
   // Set the instances
-  const NetworkProxyInstance = await NetworkProxy.at(NetworkProxy.address);
+  const OrderbookReserveInstance = await OrderbookReserve.at(OrderbookReserve.address);
 
-  // Link the main KyberNetwork contract to the proxy contract
-  tx(await NetworkProxyInstance.setKyberNetworkContract(Network.address), 'setKyberNetworkContract()');
+  // Initialize the permissioned orderbook reserve`
+  tx(
+    await OrderbookReserveInstance.init(),
+    'init()',
+  );
 };

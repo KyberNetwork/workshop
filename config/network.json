@@ -1,64 +1,11 @@
 {
   "KyberNetwork": {
-    "maxGasPrice": 50000000000,
-    "negDiffInBPS": 20
+    "address": "0xd44B9352e4Db6d0640449ed653983827BD882885"
   },
-  "FeeBurner": {
-    "reserveFees": 25,
-    "kncRate": 600,
-    "taxFeesBPS": 2000
-  },
-  "ExpectedRate": {
-    "minExpectedRateSlippage": 300,
-    "quantityFactor": 1
-  },
-  "SanityRates": {
-    "reasonableDiff": 1000,
-    "KNCSanityRate": 1840144285714286,
-    "OMGSanityRate": 17321646037735852,
-    "SALTSanityRate": 2073480000000000,
-    "ZILSanityRate": 162000000000000
-  },
-  "WhiteList": {
-    "sgdToETHRate": 1984126984126984,
-    "defaultCategory": 0,
-    "defaultCap": 5000,
-    "userCategory": 1,
-    "userCap": 10000,
-    "kgtCategory": 2,
-    "kgtCap": 0,
-    "partnerCategory": 3,
-    "partnerCap": 1000000
-  },
-  "ConversionRates": {
-    "validDurationBlock": 1000000000,
-    "bytes14": "0x0000000000000000000000000000",
-    "indices": [0, 0, 0, 0],
-    "KNCBaseBuy": "549000000000000000000",
-    "KNCBaseSell": "1813123931381047",
-    "OMGBaseBuy": "61079439106994400000",
-    "OMGBaseSell": "16400993988000000",
-    "SALTBaseBuy": "493855315770000000000",
-    "SALTBaseSell": "1999052700000000",
-    "ZILBaseBuy": "6117163764686418861883",
-    "ZILBaseSell": "161432777777778"
-  },
-  "PermissionlessOrderbookReserveLister": {
-    "unsupportedTokens": [],
-    "maxOrdersPerTrade": 5,
-    "minOrderValueUsd": 1000
-  },
-  "MockMedianizer": {
-    "DollarPerETH": 150
-  },
-  "feeSharingWallets": {
-    "bob": {
-      "wallet": "accounts[7]",
-      "fees": 4000
-    },
-    "alice": {
-      "wallet": "accounts[8]",
-      "fees": 5000
-    }
+  "OrderbookReserve": {
+    "KNC": "0x8c13AFB7815f10A8333955854E6ec7503eD841B7",
+    "Token": "0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45",
+    "FeeBurner": "0x63D556067eDbCD97ACc3356314398F70d4CcF948",
+    "Medianizer": "0x738d8Ef6AcaE15660E467AB2B2cF3a488e40FF64"
   }
 }
