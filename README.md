@@ -4,15 +4,16 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
 
 ## Useful Links
 
-1. [Slides](https://docs.google.com/presentation/d/1YllvG5QelqQhpbC-w2UKZoapdQNudmdibrUw3EhCHHk/)
-2. [KyberDeveloper Portal](http://developer.kyber.network/)
-3. [KyberDeveloper Telegram](https://t.me/KyberDeveloper/)
-4. [Workshop Repository](https://github.com/KyberNetwork/workshop/)
-5. Ropsten ETH Faucets
+1. [Introduction to Kyber Network](https://docs.google.com/presentation/d/1dEbLyUSd7tLoMatOw5Km0xw3XofWT0EwDNO7K6BUWRU/)
+2. [Introduction to Reserves](https://docs.google.com/presentation/d/1VOcL0UEEVFUeuR9a8rYNd4N3lW1hgmbXow3WDVcTj5A/)
+3. [KyberDeveloper Portal](http://developer.kyber.network/)
+4. [KyberDeveloper Telegram](https://t.me/KyberDeveloper/)
+5. [Workshop Repository](https://github.com/KyberNetwork/workshop/)
+6. Ropsten ETH Faucets
    - https://faucet.kyber.network
    - https://faucet.metamask.io
    - https://faucet.ropsten.be
-6. [Ropsten KyberSwap](https://ropsten.kyber.network/)
+7. [Ropsten KyberSwap](https://ropsten.kyber.network/)
 
 ## What is Kyber?
 Kyber is a widely used on-chain protocol that makes accessing liquidity simple for users, DApps and financial applications. The protocol has powered decentralised token swaps on popular wallets like MyEtherWallet and imToken, decentralised token payments (users can pay in any supported ERC20 token) in popular DApps like Etheremon and Peepeth and providing an on-chain liquidity source for decentralised financial applications like MelonPort, Set Protocol, b0x and many more.
@@ -27,7 +28,7 @@ Kyber protocol brings token inventories and prices on-chain, hence allowing deve
 
 ## Prerequisites
 
-1. Node and NPM LTS versions `10.14.1` and `6.4.1` respectively. Download from [nodejs.org](https://nodejs.org/en/download/)
+1. Node and NPM latest LTS versions. Download from [nodejs.org](https://nodejs.org/en/download/)
 
 2. Ganache
 
@@ -186,6 +187,7 @@ We use the mnemonic `gesture rather obey video awake genuine patient base soon p
 To run the snapshot locally, run the command:
 
 ```sh
+cd <PATH>/workshop
 ganache-cli --db db --accounts 10 --defaultBalanceEther 1000 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
 ```
 
@@ -225,7 +227,8 @@ node <SCRIPT>
 
 e.g.
 ```
-node examples/web3/swapEtherToToken.js
+cd examples/web3/
+node swapEtherToToken.js
 ```
 
 For the Solidity examples, they are already deployed in the Ganache network using the Truffle migration scripts. You can interact with the Solidity examples using `truffle console`, or write your own Truffle/Web3 scripts to interact with the Solidity example contracts.
@@ -299,40 +302,82 @@ Contracts
 
 #### 1. Create your ERC20 token contract
 
-Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply.
+Create your ERC20 token contract in `contracts/mockTokens`. You can duplicate any of the existing mock tokens and modify the token name, symbol, and total supply
 
-#### 2. Set the sanity rate of your token in the network.json config file
+#### 2. Set the minimalRecordResolution, maxPerBlockImbalance, and maxTotalImbalance of each defined token in the tokens.json config file
 
-In `config/network.json`, under the `SanityRates` section, add the sanity rate of your token. Make sure the identifier is in the format <token symbol>SanityRate (e.g. NEWSanityRate).
+In `config/tokens.json`, under the `FedPriceReserve` section, define the `minimalRecordResolution`, `maxPerBlockImbalance` and `maxTotalImbalance` of each defined token (replace NEW with the token symbol).
 
-You can leave the `reasonableDiff` as is. This field, which is the reasonable conversion rate difference in BPS, means is that any conversion rate outside of this range is considered unreasonable, and will not execute.
+These 3 fields are explained below:
+
+| Input Field               | Explanation  | Example |
+| ------------------------- | ------------ | ------- |
+| `minimalRecordResolution` | Per trade imbalance values are recorded and stored in the contract. Since this storage of data is an expensive operation, the data is squeezed into one bytes32 object. To prevent overflow while squeezing data, a resolution unit exists. Recommended value is the token wei equivalent of $0.0001. | Assume 1 OMG = $1.<br>$0.0001 = 0.0001 OMG<br>Now OMG has 18 decimals, so `0.0001*(10**18) = 1000000000000` |
+| `maxPerBlockImbalance`    | The maximum wei amount of net absolute (+/-) change for a token in an ethereum block. We recommend this value to be larger than the maximum allowed tradeable token amount for a whitelisted user. Suppose we want the maximum change in 1 block to be 439.79 OMG, then we use `439.79 * (10 ** 18) = 439790000000000000000` | Suppose we have 2 users Alice and Bob. Alice tries to buy 200 OMG and Bob tries to buy 300 OMG. Assuming both transactions are included in the same block and Alice's transaction gets processed first, Bob's transaction will **fail** because the resulting net change of -500 OMG would exceed the limit of 439.79 OMG. However, if Bob decides to sell instead of buy, then the net change becomes +100 OMG, which means an additional 539.79 OMG can be bought, or 339.79 OMG sold. |
+| `maxTotalImbalance`       | Has to be `>= maxPerBlockImbalance`. Represents the amount in wei for the net token change that happens between 2 price updates. This number is reset everytime `setBaseRate()` is called in `ConversionRates.sol`.  This acts as a safeguard measure to prevent reserve depletion from unexpected events between price updates. | If we want the maximum total imbalance to be 922.36 OMG, we will use: `922.36 * (10 ** 18) = 922360000000000000000` |
 
 ```json
-"SanityRates": {
-  "reasonableDiff": 1000,
-  "NEWSanityRate": 1840144285714286
+"FedPriceReserve": {
+  "NEW": {
+    "minimalRecordResolution" : "1000000000000000",
+    "maxPerBlockImbalance" : "9078768104330450960384",
+    "maxTotalImbalance" : "57896044618658097711785492504343953926634992332820282019728792003956564819968"
+  }
 }
 ```
 
-You can read more about sanity rates [here](https://developer.kyber.network/docs/MiscellaneousGuide/#sanity-rates/).
+Next, add the desired conversion rates of each defined token with respect to ETH, defined with `baseBuy` and `baseSell`. Conversion rate sets the basic rate per token, and is set separately for buy and sell values.
 
-#### 3. Set the BaseBuy and BaseSell rates of your token in the network.json config file
+For `bytes14Buy` and `bytes14Sell`, for simplicity, assume that we want to modify the base buy rates. The logic for modifying base sell rates is the same.
 
-In `config/network.json`, under the `ConversionRates` section, add the desired conversion rates of your token with respect to ETH. Make sure the identifier is in the format <token symbol>BaseBuy (e.g. NEWBaseBuy) and <token symbol>BaseSell (e.g. NEWBaseSell).
+Suppose the reserve supports 3 tokens: DAI, BAT, and DGX.
+We want to make the following modifications to their base buy rates:
+* +2.5% (+25 pts) to DAI_BASE_BUY_RATE
+* +1% (+10 pts) to BAT_BASE_BUY_RATE
+* -3% (-30 pts) to DGX_BASE_BUY_RATE
 
-You can leave `validDurationBlock` and `bytes14` as is.
+Note:
+
+One pt here means a 0.1% change, as compared to basis points used in step functions where 1 basis point = 0.01%.
+The range which compact data can handle is from -12.8% to 12.7%.
+This gives us the buy array [25,10,-30]. Encoding this to hex yields [0x190ae2]. But for simplicity sake, we can set this to 0x0000000000000000000000000000.
 
 ```json
-"ConversionRates": {
-  "validDurationBlock": 1000000000,
-  "bytes14": "0x0000000000000000000000000000",
-  "NEWBaseBuy": "500000000000000000000",
-  "NEWBaseSell": "2000000000000000"
+"FedPriceReserve": {
+  "NEW": {
+    "minimalRecordResolution" : "1000000000000000",
+    "maxPerBlockImbalance" : "9078768104330450960384",
+    "maxTotalImbalance" : "57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "baseBuy": "549000000000000000000",
+    "baseSell": "1813123931381047",
+    "bytes14Buy": "0x0000000000000000000000000000",
+    "bytes14Sell": "0x0000000000000000000000000000"
+  }
 }
 ```
-You can read more about these fields in the [reserve setup guide](https://developer.kyber.network/docs/ReservesGuide/).
 
-#### 4. Run the Truffle migration
+Lastly, add the sanity rate for each token you define. The sanity rates defined protect your reserve from large inconsistencies between the sanity rates and the actual rates.
+
+You should have the final definition of a token below:
+
+```json
+"FedPriceReserve": {
+  "NEW": {
+    "minimalRecordResolution" : "1000000000000000",
+    "maxPerBlockImbalance" : "9078768104330450960384",
+    "maxTotalImbalance" : "57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "baseBuy": "549000000000000000000",
+    "baseSell": "1813123931381047",
+    "bytes14Buy": "0x0000000000000000000000000000",
+    "bytes14Sell": "0x0000000000000000000000000000",
+    "sanityRate": "1840144285714286"
+  }
+}
+```
+
+You can read more about these fields in the [Fed Price Reserve guide](https://developer.kyber.network/docs/FedPriceReservesGuide/).
+
+#### 3. Run the Truffle migration
 
 With Ganache running, execute:
 
@@ -523,6 +568,8 @@ In `config/tokens.json`, under the `PermissionedOrderbookReserve` section, add t
 }
 ```
 
+These 3 fields are explained below:
+
 | Property            | Explanation                                                                              |
 | :-----------------: | :--------------------------------------------------------------------------------------: |
 | `minNewOrderUsd`    | The minimum limit order size in USD. Creating orders below this limit will be reverted.  |
@@ -549,6 +596,8 @@ In `config/tokens.json`, under the `PermissionedOrderbookReserve` section, modif
 }
 ```
 
+These 7 fields are explained below:
+
 | Property       | Explanation                                                      |
 | :------------: | :--------------------------------------------------------------: |
 | `KNCStake`     | The amount of KNC to deposit and stake in the Orderbook Reserve. |
@@ -567,3 +616,11 @@ With Ganache running, execute:
 ```
 truffle migrate --network development --reset
 ```
+
+## Workshop Exercises
+
+#### 1. Create a smart contract that splits ETH into 3 different tokens. In the constructor, specify the 3 different tokens and percentage distribution of each token.
+
+#### 2. Launch an Automated Price Reserve with your own custom token.
+
+#### 3. Integrate token swaps in your own solidity project.
