@@ -1,3 +1,5 @@
+### ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) ALL CODE EXAMPLES IN THIS WORKSHOP HAVE NOT BEEN AUDITED AND SHOULD NOT BE USED IN PRODUCTION. IF SO, IT IS DONE AT YOUR OWN RISK! ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)
+
 # Kyber Workshop
 
 This repository is used as complement to the workshops conducted by Kyber. It can also be used to quickly test the Kyber contracts in your local machine.
@@ -16,6 +18,7 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
 7. [Ropsten KyberSwap](https://ropsten.kyber.network/)
 
 ## What is Kyber?
+
 Kyber is a widely used on-chain protocol that makes accessing liquidity simple for users, DApps and financial applications. The protocol has powered decentralised token swaps on popular wallets like MyEtherWallet and imToken, decentralised token payments (users can pay in any supported ERC20 token) in popular DApps like Etheremon and Peepeth and providing an on-chain liquidity source for decentralised financial applications like MelonPort, Set Protocol, b0x and many more.
 
 Kyber protocol brings token inventories and prices on-chain, hence allowing developers to directly embed value exchanges into their smart contracts without any technical or security overhead. This allows for:
@@ -129,17 +132,17 @@ workshop<br />
 │   │   ├── swapTokenToToken.js<br />
 │   │   └── trade.js<br />
 │   └── web3<br />
-│       ├── abi<br />
-│       │   ├── KyberNetworkProxy.abi<br />
-│       │   ├── KNC.abi<br />
-│       │   ├── OMG.abi<br />
-│       │   ├── MANA.abi<br />
-│       │   ├── SALT.abi<br />
-│       │   └── ZIL.abi<br />
-│       ├── getExpectedRate.js<br />
-│       ├── swapEtherToToken.js<br />
-│       ├── swapTokenToEther.js<br />
-│       └── swapTokenToToken.js<br />
+│   ├── abi<br />
+│   │   ├── KyberNetworkProxy.abi<br />
+│   │   ├── KNC.abi<br />
+│   │   ├── OMG.abi<br />
+│   │   ├── MANA.abi<br />
+│   │   ├── SALT.abi<br />
+│   │   └── ZIL.abi<br />
+│   ├── getExpectedRate.js<br />
+│   ├── swapEtherToToken.js<br />
+│   ├── swapTokenToEther.js<br />
+│   └── swapTokenToToken.js<br />
 ├── LICENSE<br />
 ├── migrations<br />
 │   ├── 1_initial_migration.js<br />
@@ -159,7 +162,7 @@ workshop<br />
 │   ├── 15_setup_KyberNetwork.js<br />
 │   ├── 16_add_PermissionlessOrderbookReserve.js<br />
 │   ├── 17_transfer_tokens.js<br />
-│   └──  18_deployment_summary.js<br />
+│   └── 18_deployment_summary.js<br />
 ├── package.json<br />
 ├── README.md<br />
 ├── scripts<br />
@@ -196,11 +199,13 @@ ganache-cli --db db --accounts 10 --defaultBalanceEther 1000 --mnemonic 'gesture
 If you wish to deploy the Kyber contracts yourself, you can run the following commands:
 
 Run ganache-cli in one terminal session
+
 ```
 ganache-cli --accounts 10 --defaultBalanceEther 1000 --mnemonic 'gesture rather obey video awake genuine patient base soon parrot upset lounge' --networkId 5777 --debug
 ```
 
 In a new terminal session, connect to the ganache network, and run the truffle migration scripts
+
 ```
 truffle migrate --network development
 ```
@@ -210,22 +215,26 @@ truffle migrate --network development
 You can directly interact with the Kyber contracts on the Ganache network. We have provided some example scripts in the `example` directory.
 
 For the Truffle examples:
+
 ```
 truffle exec examples/truffle/<SCRIPT>
 ```
 
 e.g.
+
 ```
 truffle exec examples/truffle/swapEtherToToken.js
 ```
 
 For the Web3 examples:
+
 ```
 cd examples/web3
 node <SCRIPT>
 ```
 
 e.g.
+
 ```
 cd examples/web3/
 node swapEtherToToken.js
@@ -235,34 +244,31 @@ For the Solidity examples, they are already deployed in the Ganache network usin
 
 ### Ganache network details
 
-Network
-==================
+# Network
+
 development
 
+# Permissions
 
-Permissions
-==================
-| ENTITY       | ADDRESS                                    |
+|    ENTITY    |                  ADDRESS                   |
 | :----------: | :----------------------------------------: |
-| **admin**    | 0x2B522cABE9950D1153c26C1b399B293CaA99FcF9 |
+|  **admin**   | 0x2B522cABE9950D1153c26C1b399B293CaA99FcF9 |
 | **operator** | 0x3644B986B3F5Ba3cb8D5627A22465942f8E06d09 |
 | **alerter**  | 0x9e8f633D0C46ED7170EF3B30E291c64a91a49C7E |
 
+# Wallets
 
-Wallets
-==================
-| WALLET      | ADDRESS                                    |
+|   WALLET    |                  ADDRESS                   |
 | :---------: | :----------------------------------------: |
-| **user**    | 0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2 |
+|  **user**   | 0x47a793D7D0AA5727095c3Fe132a6c1A46804c8D2 |
 | **reserve** | 0x0d95EBB4874f17157e40635C19dBC6E9b0BFdb03 |
-| **tax**     | 0x5243B5970f327c328B2739dEc88abC46FaE8931A |
-| **bob**     | 0xe1a1d3637eE02391ac4035e72456Ca7448c73FD4 |
-| **alice**   | 0x1cF1919d91cebAb2E56a5c0cC7180bB54eD4f3F6 |
+|   **tax**   | 0x5243B5970f327c328B2739dEc88abC46FaE8931A |
+|   **bob**   | 0xe1a1d3637eE02391ac4035e72456Ca7448c73FD4 |
+|  **alice**  | 0x1cF1919d91cebAb2E56a5c0cC7180bB54eD4f3F6 |
 
+# Tokens
 
-Tokens
-==================
-| TOKEN    | ADDRESS                                    |
+|  TOKEN   |                  ADDRESS                   |
 | :------: | :----------------------------------------: |
 | **KNC**  | 0x8c13AFB7815f10A8333955854E6ec7503eD841B7 |
 | **OMG**  | 0x3750bE154260872270EbA56eEf89E78E6E21C1D9 |
@@ -272,27 +278,26 @@ Tokens
 | **POLY** | 0x58A21f7aA3D9D83D0BD8D4aDF589626D13b94b45 |
 | **SNT**  | 0xA46E01606f9252fa833131648f4D855549BcE9D9 |
 
+# Contracts
 
-Contracts
-==================
-| CONTRACT                                 | ADDRESS                                    |
+|                 CONTRACT                 |                  ADDRESS                   |
 | :--------------------------------------: | :----------------------------------------: |
-| **KyberNetwork**                         | 0xd44B9352e4Db6d0640449ed653983827BD882885 |
-| **KyberNetworkProxy**                    | 0xd3add19ee7e5287148a5866784aE3C55bd4E375A |
-| **ConversionRates**                      | 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167 |
-| **LiquidityConversionRates**             | 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C |
-| **SanityRates**                          | 0xf71D305142eC1aC03896526D52F743959db01624 |
-| **KyberReserve**                         | 0x19F18bde9896890f161DeD31B05b58dc0ffD911b |
-| **KyberAutomatedReserve**                | 0xdE4e2118f45f1b27699B25004563819B57f5E3b2 |
-| **KyberOrderbookReserve**                | 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8 |
+|             **KyberNetwork**             | 0xd44B9352e4Db6d0640449ed653983827BD882885 |
+|          **KyberNetworkProxy**           | 0xd3add19ee7e5287148a5866784aE3C55bd4E375A |
+|           **ConversionRates**            | 0x6E9b241Eec2C4a80485c1D2dF750231AFaf1A167 |
+|       **LiquidityConversionRates**       | 0x8b3BdEcEac3d23A215300A3df19e1bEe43A0Ac9C |
+|             **SanityRates**              | 0xf71D305142eC1aC03896526D52F743959db01624 |
+|             **KyberReserve**             | 0x19F18bde9896890f161DeD31B05b58dc0ffD911b |
+|        **KyberAutomatedReserve**         | 0xdE4e2118f45f1b27699B25004563819B57f5E3b2 |
+|        **KyberOrderbookReserve**         | 0x586F3cDCe25E76B69efD1C6Eb6104FAa0760A6a8 |
 | **PermissionlessOrderbookReserveLister** | 0x295631209354194B6453921bfFeFEe79cD42BdB9 |
-| **FeeBurner**                            | 0x63D556067eDbCD97ACc3356314398F70d4CcF948 |
-| **WhiteList**                            | 0x5a8665AbbDe3986687494176e22d38B169EA1eab |
-| **ExpectedRate**                         | 0xB4c927fC102547e4089b02caE5E92d866F63bFE6 |
-| **SwapEtherToToken**                     | 0x47bC234Bf1F1436A794DF0a9FcA2935ea384629E |
-| **SwapTokenToEther**                     | 0x6aBd125bcc68012197D81a92B4A56307177e0DBD |
-| **SwapTokenToToken**                     | 0xB31b6edd85c386C259FB5488dae8Be4ed82C0778 |
-| **Trade**                                | 0x3f21DD3b2Aca23e495290a8dcb9A934984D93a6c |
+|              **FeeBurner**               | 0x63D556067eDbCD97ACc3356314398F70d4CcF948 |
+|              **WhiteList**               | 0x5a8665AbbDe3986687494176e22d38B169EA1eab |
+|             **ExpectedRate**             | 0xB4c927fC102547e4089b02caE5E92d866F63bFE6 |
+|           **SwapEtherToToken**           | 0x47bC234Bf1F1436A794DF0a9FcA2935ea384629E |
+|           **SwapTokenToEther**           | 0x6aBd125bcc68012197D81a92B4A56307177e0DBD |
+|           **SwapTokenToToken**           | 0xB31b6edd85c386C259FB5488dae8Be4ed82C0778 |
+|                **Trade**                 | 0x3f21DD3b2Aca23e495290a8dcb9A934984D93a6c |
 
 **NOTE:** The `KyberReserve` and `KyberAutomatedReserve` as well as the `KyberOrderbookReserve` and `OrderbookReserve` are the same contracts. A duplicate was made as a workaround due to a limitation of Truffle where only one instance of a contract can be migrated. Kyber has three types of reserves, the Fed Price Reserve, Automated Price Reserve, and Orderbook Reserve, which you can read more about [here](https://developer.kyber.network/docs/ReservesUseCase/).
 
@@ -310,11 +315,11 @@ In `config/tokens.json`, under the `FedPriceReserve` section, define the `minima
 
 These 3 fields are explained below:
 
-| Input Field               | Explanation  | Example |
-| ------------------------- | ------------ | ------- |
-| `minimalRecordResolution` | Per trade imbalance values are recorded and stored in the contract. Since this storage of data is an expensive operation, the data is squeezed into one bytes32 object. To prevent overflow while squeezing data, a resolution unit exists. Recommended value is the token wei equivalent of $0.0001. | Assume 1 OMG = $1.<br>$0.0001 = 0.0001 OMG<br>Now OMG has 18 decimals, so `0.0001*(10**18) = 1000000000000` |
-| `maxPerBlockImbalance`    | The maximum wei amount of net absolute (+/-) change for a token in an ethereum block. We recommend this value to be larger than the maximum allowed tradeable token amount for a whitelisted user. Suppose we want the maximum change in 1 block to be 439.79 OMG, then we use `439.79 * (10 ** 18) = 439790000000000000000` | Suppose we have 2 users Alice and Bob. Alice tries to buy 200 OMG and Bob tries to buy 300 OMG. Assuming both transactions are included in the same block and Alice's transaction gets processed first, Bob's transaction will **fail** because the resulting net change of -500 OMG would exceed the limit of 439.79 OMG. However, if Bob decides to sell instead of buy, then the net change becomes +100 OMG, which means an additional 539.79 OMG can be bought, or 339.79 OMG sold. |
-| `maxTotalImbalance`       | Has to be `>= maxPerBlockImbalance`. Represents the amount in wei for the net token change that happens between 2 price updates. This number is reset everytime `setBaseRate()` is called in `ConversionRates.sol`.  This acts as a safeguard measure to prevent reserve depletion from unexpected events between price updates. | If we want the maximum total imbalance to be 922.36 OMG, we will use: `922.36 * (10 ** 18) = 922360000000000000000` |
+| Input Field               | Explanation                                                                                                                                                                                                                                                                                                                     | Example                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `minimalRecordResolution` | Per trade imbalance values are recorded and stored in the contract. Since this storage of data is an expensive operation, the data is squeezed into one bytes32 object. To prevent overflow while squeezing data, a resolution unit exists. Recommended value is the token wei equivalent of \$0.0001.                          | Assume 1 OMG = $1.<br>$0.0001 = 0.0001 OMG<br>Now OMG has 18 decimals, so `0.0001*(10**18) = 1000000000000`                                                                                                                                                                                                                                                                                                                                                                              |
+| `maxPerBlockImbalance`    | The maximum wei amount of net absolute (+/-) change for a token in an ethereum block. We recommend this value to be larger than the maximum allowed tradeable token amount for a whitelisted user. Suppose we want the maximum change in 1 block to be 439.79 OMG, then we use `439.79 * (10 ** 18) = 439790000000000000000`    | Suppose we have 2 users Alice and Bob. Alice tries to buy 200 OMG and Bob tries to buy 300 OMG. Assuming both transactions are included in the same block and Alice's transaction gets processed first, Bob's transaction will **fail** because the resulting net change of -500 OMG would exceed the limit of 439.79 OMG. However, if Bob decides to sell instead of buy, then the net change becomes +100 OMG, which means an additional 539.79 OMG can be bought, or 339.79 OMG sold. |
+| `maxTotalImbalance`       | Has to be `>= maxPerBlockImbalance`. Represents the amount in wei for the net token change that happens between 2 price updates. This number is reset everytime `setBaseRate()` is called in `ConversionRates.sol`. This acts as a safeguard measure to prevent reserve depletion from unexpected events between price updates. | If we want the maximum total imbalance to be 922.36 OMG, we will use: `922.36 * (10 ** 18) = 922360000000000000000`                                                                                                                                                                                                                                                                                                                                                                      |
 
 ```json
 "FedPriceReserve": {
@@ -332,9 +337,10 @@ For `bytes14Buy` and `bytes14Sell`, for simplicity, assume that we want to modif
 
 Suppose the reserve supports 3 tokens: DAI, BAT, and DGX.
 We want to make the following modifications to their base buy rates:
-* +2.5% (+25 pts) to DAI_BASE_BUY_RATE
-* +1% (+10 pts) to BAT_BASE_BUY_RATE
-* -3% (-30 pts) to DGX_BASE_BUY_RATE
+
+- +2.5% (+25 pts) to DAI_BASE_BUY_RATE
+- +1% (+10 pts) to BAT_BASE_BUY_RATE
+- -3% (-30 pts) to DGX_BASE_BUY_RATE
 
 Note:
 
@@ -408,7 +414,7 @@ Modify the file `config/tokens.json` and add the new token section (replace NEW 
       "_maxTokenToEthRateInPrecision": "100000000000000",
       "_minTokenToEthRateInPrecision": "25000000000000",
       "Ether": "100",
-      "Tokens": "2000000",
+      "Tokens": "2000000"
     }
   }
 }
@@ -416,34 +422,35 @@ Modify the file `config/tokens.json` and add the new token section (replace NEW 
 
 **AutomatedReserve.Token**
 
-| Property    | Explanation |
-| :---------: | :---------: |
-| `_rInFp`    | r in formula precision, calculated as r * InFp. |
-| `_pMinInFp` | Minimum supported price factor in formula precision, calculated as min price factor * initial price of your token * InFp. |
-| `_numFpBits` | The formula precision in bits, therefore for formula precision of 2^40, _numFpBits is 40. |
-| `_maxCapBuyInWei` | The allowed quantity for one BUY trade in ETH. |
-| `_maxCapSellInWei` | The allowed quantity for one SELL trade in ETH. |
-| `_feeInBps` | The fee amount in basis points (1 bp = 0.01%) that should be calculated in the price. |
-| `_maxTokenToEthRateInPrecision` | The maximum allowed price taking into consideration the maximum supported price factor and must be in 10^18. |
-| `_minTokenToEthRateInPrecision` | The minimum allowed price taking into consideration the minimum supported price factor and must be in 10^18. |
-| `Ether` | The amount of initial ETH inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH. |
-| `Tokens` | The amount of initial token inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH worth of tokens. |
+|            Property             |                                                                    Explanation                                                                    |
+| :-----------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
+|            `_rInFp`             |                                                 r in formula precision, calculated as r \* InFp.                                                  |
+|           `_pMinInFp`           |             Minimum supported price factor in formula precision, calculated as min price factor _ initial price of your token _ InFp.             |
+|          `_numFpBits`           |                            The formula precision in bits, therefore for formula precision of 2^40, \_numFpBits is 40.                             |
+|        `_maxCapBuyInWei`        |                                                  The allowed quantity for one BUY trade in ETH.                                                   |
+|       `_maxCapSellInWei`        |                                                  The allowed quantity for one SELL trade in ETH.                                                  |
+|           `_feeInBps`           |                               The fee amount in basis points (1 bp = 0.01%) that should be calculated in the price.                               |
+| `_maxTokenToEthRateInPrecision` |                   The maximum allowed price taking into consideration the maximum supported price factor and must be in 10^18.                    |
+| `_minTokenToEthRateInPrecision` |                   The minimum allowed price taking into consideration the minimum supported price factor and must be in 10^18.                    |
+|             `Ether`             |          The amount of initial ETH inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH.          |
+|            `Tokens`             | The amount of initial token inventory to be deposited into the automated reserve. It is recommended to allocate at least 100 ETH worth of tokens. |
+
 <br />
 
 The function that will be invoked to set liquidity parameters is:
 
-function __setLiquidityParams__(uint \_rInFp, uint \_pMinInFp, uint \_numFpBits, uint \_maxCapBuyInWei, uint \_maxCapSellInWei, uint \_feeInBps, uint \_maxTokenToEthRateInPrecision, uint \_minTokenToEthRateInPrecision) public onlyAdmin
+function **setLiquidityParams**(uint \_rInFp, uint \_pMinInFp, uint \_numFpBits, uint \_maxCapBuyInWei, uint \_maxCapSellInWei, uint \_feeInBps, uint \_maxTokenToEthRateInPrecision, uint \_minTokenToEthRateInPrecision) public onlyAdmin
 
-| Type      | Parameter                     |
-| :-------: | :---------------------------: |
-| `uint`    | _rInFp                        |
-| `uint`    | _pMinInFp                     |
-| `uint`    | _numFpBits                    |
-| `uint`    | _maxCapBuyInWei               |
-| `uint`    | _maxCapSellInWei              |
-| `uint`    | _feeInBps                     |
-| `uint`    | _maxTokenToEthRateInPrecision |
-| `uint`    | _minTokenToEthRateInPrecision |
+|  Type  |           Parameter            |
+| :----: | :----------------------------: |
+| `uint` |            \_rInFp             |
+| `uint` |           \_pMinInFp           |
+| `uint` |          \_numFpBits           |
+| `uint` |        \_maxCapBuyInWei        |
+| `uint` |       \_maxCapSellInWei        |
+| `uint` |           \_feeInBps           |
+| `uint` | \_maxTokenToEthRateInPrecision |
+| `uint` | \_minTokenToEthRateInPrecision |
 
 The reserve manager needs to only decide on the initial liquidity parameters of the automated reserve. Specifically, the following information need to be considered and to calculate the parameters above:
 
@@ -463,7 +470,6 @@ Second, **r** is liquidity the rate in basis points or units of 100 which the pr
 
 For the **minimum/maximum supported price factor ratio**, it is recommended to start with a ratio of 0.5:2.0. This indicates that the inventory will suffice for up to 100% increase or 50% decrease in token price with respect to ETH.
 
-
 ##### Example
 
 Now, Let's assume we want to list a token with the following considerations:
@@ -478,16 +484,16 @@ Now, Let's assume we want to list a token with the following considerations:
 
 Below, we will calculate the different parameters.
 
-| Parameter          | Formula                                   | Example Value                                            |
-| :----------------: | :---------------------------------------: | :------------------------------------------------------: |
-| `_rInFp`           | r * InFp                                  | _rInFp = (0.01 * 2^40) = **10995116277**                 |
-| `_pMinInFp`        | pMin * initial price of token * InFp      | _pMinInFp = (0.5 * 0.00005 * 2^40) = **27487790**        |
-| `_numFpBits`       | InFp in numFpBits                         | _numFpBits = **40**                                      |
-| `_maxCapBuyInWei`  | max buy cap * 10^18                       | _maxCapBuyInWei = (5 * 10^18) = **5000000000000000000**  |
-| `_maxCapSellInWei` | max sell cap * 10^18                      | _maxCapSellInWei = (5 * 10^18) = **5000000000000000000** |
-| `_feeInBps`        | fee percentage in BPS                     | _feeInBps = **25**                                       |
-| `_maxTokenToEthRateInPrecision` | pMax * initial price of token * 10^18 | _maxTokenToEthRateInPrecision = (2.0 * 0.00005 * 10^18) = **100000000000000** |
-| `_minTokenToEthRateInPrecision` | pMin * initial price of token * 10^18 | _minTokenToEthRateInPrecision = (0.5 * 0.00005 * 10^18) = **25000000000000** |
+|            Parameter            |                Formula                |                                 Example Value                                  |
+| :-----------------------------: | :-----------------------------------: | :----------------------------------------------------------------------------: |
+|            `_rInFp`             |               r \* InFp               |                   \_rInFp = (0.01 \* 2^40) = **10995116277**                   |
+|           `_pMinInFp`           | pMin _ initial price of token _ InFp  |               \_pMinInFp = (0.5 _ 0.00005 _ 2^40) = **27487790**               |
+|          `_numFpBits`           |           InFp in numFpBits           |                              \_numFpBits = **40**                              |
+|        `_maxCapBuyInWei`        |         max buy cap \* 10^18          |           \_maxCapBuyInWei = (5 \* 10^18) = **5000000000000000000**            |
+|       `_maxCapSellInWei`        |         max sell cap \* 10^18         |           \_maxCapSellInWei = (5 \* 10^18) = **5000000000000000000**           |
+|           `_feeInBps`           |         fee percentage in BPS         |                              \_feeInBps = **25**                               |
+| `_maxTokenToEthRateInPrecision` | pMax _ initial price of token _ 10^18 | \_maxTokenToEthRateInPrecision = (2.0 _ 0.00005 _ 10^18) = **100000000000000** |
+| `_minTokenToEthRateInPrecision` | pMin _ initial price of token _ 10^18 | \_minTokenToEthRateInPrecision = (0.5 _ 0.00005 _ 10^18) = **25000000000000**  |
 
 #### Using get_liquidity_params.py Python script
 
@@ -498,9 +504,9 @@ A Python script, located in `scripts/get_liquidity_params.py` in the `smart-cont
   "liquidity_rate": 0.01,
   "initial_ether_amount": 100.0,
   "initial_token_amount": 2000000,
-  "initial_price":  0.00005,
+  "initial_price": 0.00005,
   "min_supported_price_factor": 0.5,
-  "max_supported_price_factor" : 2.0,
+  "max_supported_price_factor": 2.0,
   "max_tx_buy_amount_eth": 5.0,
   "max_tx_sell_amount_eth": 5.0,
   "fee_percent": 0.25,
@@ -570,11 +576,12 @@ In `config/tokens.json`, under the `PermissionedOrderbookReserve` section, add t
 
 These 3 fields are explained below:
 
-| Property            | Explanation                                                                              |
+|      Property       |                                       Explanation                                        |
 | :-----------------: | :--------------------------------------------------------------------------------------: |
-| `minNewOrderUsd`    | The minimum limit order size in USD. Creating orders below this limit will be reverted.  |
+|  `minNewOrderUsd`   | The minimum limit order size in USD. Creating orders below this limit will be reverted.  |
 | `maxOrdersPerTrade` | The maximum number of orders to traverse (and therefore use) to fulfill 1 trade request. |
-| `burnFeeBps`        | The fee amount in basis points (1 bp = 0.01%) that should be calculated in the price.    |
+|    `burnFeeBps`     |  The fee amount in basis points (1 bp = 0.01%) that should be calculated in the price.   |
+
 <br />
 
 #### 3. Set the initial limit order to the Orderbook Reserve
@@ -598,15 +605,16 @@ In `config/tokens.json`, under the `PermissionedOrderbookReserve` section, modif
 
 These 7 fields are explained below:
 
-| Property       | Explanation                                                      |
+|    Property    |                           Explanation                            |
 | :------------: | :--------------------------------------------------------------: |
-| `KNCStake`     | The amount of KNC to deposit and stake in the Orderbook Reserve. |
-| `ETHDeposit`   | The amount of ETH to deposit to the Orderbook Reserve.           |
-| `TokenDeposit` | The amount of tokens to deposit to the Orderbook Reserve.        |
-| `ETHSell`      | The amount of ETH to sell in a BID order.                        |
-| `TokenBuy`     | The amount of tokens to buy in a BID order.                      |
-| `ETHBuy`       | The amount of ETH to buy in an ASK order.                        |
-| `TokenSell`    | The amount of tokens to sell in an ASK order.                    |
+|   `KNCStake`   | The amount of KNC to deposit and stake in the Orderbook Reserve. |
+|  `ETHDeposit`  |      The amount of ETH to deposit to the Orderbook Reserve.      |
+| `TokenDeposit` |    The amount of tokens to deposit to the Orderbook Reserve.     |
+|   `ETHSell`    |            The amount of ETH to sell in a BID order.             |
+|   `TokenBuy`   |           The amount of tokens to buy in a BID order.            |
+|    `ETHBuy`    |            The amount of ETH to buy in an ASK order.             |
+|  `TokenSell`   |          The amount of tokens to sell in an ASK order.           |
+
 <br />
 
 #### 4. Run the Truffle migration

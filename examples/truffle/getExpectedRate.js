@@ -1,3 +1,6 @@
+// All code examples in this guide have not been audited and should not be used in production.
+// If so, it is done at your own risk!
+
 /* global artifacts, web3 */
 /* eslint-disable no-underscore-dangle */
 const BN = require('bn.js');
@@ -31,84 +34,108 @@ module.exports = async (callback) => {
     KNC.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`ETH <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `ETH <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     KNC.address, // srcToken
     ETH_ADDRESS, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`KNC <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `KNC <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     KNC.address, // srcToken
     OMG.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`KNC <-> OMG getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `KNC <-> OMG getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     ETH_ADDRESS, // srcToken
     MANA.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`ETH <-> MANA getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `ETH <-> MANA getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     MANA.address, // srcToken
     ETH_ADDRESS, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`MANA <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `MANA <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     MANA.address, // srcToken
     KNC.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`MANA <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `MANA <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     ETH_ADDRESS, // srcToken
     POLY.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`ETH <-> POLY getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `ETH <-> POLY getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     POLY.address, // srcToken
     ETH_ADDRESS, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`POLY <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `POLY <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     POLY.address, // srcToken
     KNC.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`POLY <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `POLY <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     ETH_ADDRESS, // srcToken
     SNT.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`ETH <-> SNT getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `ETH <-> SNT getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     SNT.address, // srcToken
     ETH_ADDRESS, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`SNT <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `SNT <-> ETH getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     SNT.address, // srcToken
     KNC.address, // destToken
     web3.utils.toWei(new BN(1)), // srcQty
   ));
-  stdlog(`SNT <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`);
+  stdlog(
+    `SNT <-> KNC getExpectedRate() = expectedRate: ${expectedRate}, slippageRate:${slippageRate}`,
+  );
 
   stdlog('- END -');
   callback();

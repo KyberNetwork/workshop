@@ -1,3 +1,7 @@
+# All code examples in this guide have not been audited and should not be used in production.
+# If so, it is done at your own risk!
+
+
 import sys
 import argparse
 import json
@@ -38,7 +42,7 @@ def calc_price_factors(
             initial_price / (1 - liquidity_rate * initial_price * initial_token_amount)
         max_supported_price_factor = max_supported_price / initial_price
     else:
-        #max_supported_price_factor can not be calculated 
+        #max_supported_price_factor can not be calculated
         max_supported_price_factor = 0
 
     return min_supported_price_factor, max_supported_price_factor

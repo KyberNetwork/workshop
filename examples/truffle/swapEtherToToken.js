@@ -1,3 +1,6 @@
+// All code examples in this guide have not been audited and should not be used in production.
+// If so, it is done at your own risk!
+
 /* global artifacts, web3 */
 /* eslint-disable no-underscore-dangle, no-unused-vars */
 const BN = require('bn.js');
@@ -12,7 +15,7 @@ function stdlog(input) {
 }
 
 function tx(result, call) {
-  const logs = (result.logs.length > 0) ? result.logs[0] : { address: null, event: null };
+  const logs = result.logs.length > 0 ? result.logs[0] : { address: null, event: null };
 
   console.log();
   console.log(`   ${call}`);
@@ -40,9 +43,17 @@ module.exports = async (callback) => {
   stdlog('- START -');
   stdlog(`KyberNetworkProxy (${NetworkProxy.address})`);
 
-  stdlog(`ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`);
-  stdlog(`KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`);
-  stdlog(`MANA balance of ${userWallet} = ${web3.utils.fromWei(await MANAInstance.balanceOf(userWallet))}`);
+  stdlog(
+    `ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`,
+  );
+  stdlog(
+    `KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`,
+  );
+  stdlog(
+    `MANA balance of ${userWallet} = ${web3.utils.fromWei(
+      await MANAInstance.balanceOf(userWallet),
+    )}`,
+  );
 
   ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
     ETH_ADDRESS, // srcToken
@@ -70,9 +81,17 @@ module.exports = async (callback) => {
   );
   tx(result, 'ETH <-> MANA swapEtherToToken()');
 
-  stdlog(`ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`);
-  stdlog(`KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`);
-  stdlog(`MANA balance of ${userWallet} = ${web3.utils.fromWei(await MANAInstance.balanceOf(userWallet))}`);
+  stdlog(
+    `ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`,
+  );
+  stdlog(
+    `KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`,
+  );
+  stdlog(
+    `MANA balance of ${userWallet} = ${web3.utils.fromWei(
+      await MANAInstance.balanceOf(userWallet),
+    )}`,
+  );
 
   stdlog('- END -');
   callback();
