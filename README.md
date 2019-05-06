@@ -383,7 +383,22 @@ You should have the final definition of a token below:
 
 You can read more about these fields in the [Fed Price Reserve guide](https://developer.kyber.network/docs/FedPriceReservesGuide/).
 
-#### 3. Run the Truffle migration
+#### 3. Edit `ConversionRates` in `network.json`
+```
+  "ConversionRates": {
+    "validDurationBlock": 1000000000,
+    "indices": [0, 0, 0]
+  },
+```
+Edit the `indices` to have the same number of zeroes as the number of tokens. For instance, if the reserve will support 6 tokens, then the `ConversionRates` section should be:
+```
+  "ConversionRates": {
+    "validDurationBlock": 1000000000,
+    "indices": [0, 0, 0, 0, 0, 0]
+  },
+ ```
+
+#### 4. Run the Truffle migration
 
 With Ganache running, execute:
 
