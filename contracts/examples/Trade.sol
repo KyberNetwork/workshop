@@ -18,7 +18,35 @@ contract Trade {
         proxy = _proxy;
     }
 
-    //@dev Swap the user's ERC20 token to another ERC20 token
+    //@dev Swap the user's ETH to another ERC20 token
+    //@param destToken destination token contract address
+    //@param destAddress address to send swapped tokens to
+    //@param maxDestAmount address to send swapped tokens to
+    function execSwapETH(
+        ERC20 destToken,
+        address destAddress,
+        uint maxDestAmount
+    ) public payable {
+        uint minConversionRate;
+        // Get the minimum conversion rate
+        (minConversionRate,) = proxy.getExpectedRate(ETH_TOKEN_ADDRESS, destToken, msg.value);
+
+        // Swap the ERC20 token and send to destAddress
+        proxy.trade.value(msg.value)(
+            ETH_TOKEN_ADDRESS,
+            msg.value,
+            destToken,
+            destAddress,
+            maxDestAmount,
+            minConversionRate,
+            0
+        );
+
+        // Log the event
+        Swap(msg.sender, ETH_TOKEN_ADDRESS, destToken);
+    }
+
+    //@dev Swap the user's ERC20 token to ETH or another ERC20 token
     //@param srcToken source token contract address
     //@param srcQty amount of source tokens
     //@param destToken destination token contract address

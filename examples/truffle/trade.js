@@ -31,6 +31,7 @@ function tx(result, call) {
 module.exports = async (callback) => {
   const accounts = web3.eth.accounts._provider.addresses;
   const userWallet = accounts[4];
+  const ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
   let expectedRate;
   let slippageRate;
   let result;
@@ -45,6 +46,9 @@ module.exports = async (callback) => {
   stdlog(`KyberNetworkProxy (${NetworkProxy.address})`);
 
   stdlog(
+    `ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`,
+  );
+  stdlog(
     `KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`,
   );
   stdlog(
@@ -55,6 +59,25 @@ module.exports = async (callback) => {
       await MANAInstance.balanceOf(userWallet),
     )}`,
   );
+
+  ({ expectedRate, slippageRate } = await NetworkProxyInstance.getExpectedRate(
+    ETH_ADDRESS, // srcToken
+    KNC.address, // destToken
+    web3.utils.toWei(new BN(1)), // srcQty
+  ));
+
+  // Perform an ETH to KNC trade
+  result = await NetworkProxyInstance.trade(
+    ETH_ADDRESS, // srcToken
+    web3.utils.toWei(new BN(1)), // srcAmount
+    KNC.address, // destToken
+    userWallet, // destAddress
+    web3.utils.toWei(new BN(1000000)), // maxDestAmount
+    expectedRate, // minConversionRate
+    '0x0000000000000000000000000000000000000000', // walletId
+    { from: userWallet, value: web3.utils.toWei(new BN(1)) },
+  );
+  tx(result, 'ETH <-> KNC trade()');
 
   // Approve the KyberNetwork contract to spend user's tokens
   await KNCInstance.approve(NetworkProxy.address, web3.utils.toWei(new BN(100000)), {
@@ -97,6 +120,9 @@ module.exports = async (callback) => {
   );
   tx(result, 'KNC <-> MANA trade()');
 
+  stdlog(
+    `ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`,
+  );
   stdlog(
     `KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.balanceOf(userWallet))}`,
   );
