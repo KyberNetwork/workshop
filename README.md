@@ -420,7 +420,7 @@ Modify the file `config/tokens.json` and add the new token section (replace NEW 
 {
   "AutomatedReserve": {
     "NEW": {
-      "_rInFp": "10995116277",
+      "_rInFp": "7696581394",
       "_pMinInFp": "27487790",
       "_numFpBits": "40",
       "_maxCapBuyInWei": "5000000000000000000",
@@ -489,7 +489,7 @@ For the **minimum/maximum supported price factor ratio**, it is recommended to s
 
 Now, Let's assume we want to list a token with the following considerations:
 
-1. Liquidity Rate – 0.01 (1%)
+1. Liquidity Rate – 0.007 (0.7%)
 2. Initial Token Price – 1 token = 0.00005 ETH
 3. Initial Ether Amount – 100 ETH
 4. Initial Token Amount – 2,000,000 tokens (100 ETH worth)
@@ -501,14 +501,14 @@ Below, we will calculate the different parameters.
 
 |            Parameter            |                Formula                |                                 Example Value                                  |
 | :-----------------------------: | :-----------------------------------: | :----------------------------------------------------------------------------: |
-|            `_rInFp`             |               r \* InFp               |                   \_rInFp = (0.01 \* 2^40) = **10995116277**                   |
-|           `_pMinInFp`           | pMin _ initial price of token _ InFp  |               \_pMinInFp = (0.5 _ 0.00005 _ 2^40) = **27487790**               |
+|            `_rInFp`             |               r \* InFp               |                   \_rInFp = (0.007 \* 2^40) = **7696581394**                   |
+|           `_pMinInFp`           | pMin \* initial price of token \* InFp  |               \_pMinInFp = (0.5 \* 0.00005 \* 2^40) = **27487790**               |
 |          `_numFpBits`           |           InFp in numFpBits           |                              \_numFpBits = **40**                              |
 |        `_maxCapBuyInWei`        |         max buy cap \* 10^18          |           \_maxCapBuyInWei = (5 \* 10^18) = **5000000000000000000**            |
 |       `_maxCapSellInWei`        |         max sell cap \* 10^18         |           \_maxCapSellInWei = (5 \* 10^18) = **5000000000000000000**           |
 |           `_feeInBps`           |         fee percentage in BPS         |                              \_feeInBps = **25**                               |
-| `_maxTokenToEthRateInPrecision` | pMax _ initial price of token _ 10^18 | \_maxTokenToEthRateInPrecision = (2.0 _ 0.00005 _ 10^18) = **100000000000000** |
-| `_minTokenToEthRateInPrecision` | pMin _ initial price of token _ 10^18 | \_minTokenToEthRateInPrecision = (0.5 _ 0.00005 _ 10^18) = **25000000000000**  |
+| `_maxTokenToEthRateInPrecision` | pMax \* initial price of token \* 10^18 | \_maxTokenToEthRateInPrecision = (2.0 \* 0.00005 \* 10^18) = **100000000000000** |
+| `_minTokenToEthRateInPrecision` | pMin \* initial price of token \* 10^18 | \_minTokenToEthRateInPrecision = (0.5 \* 0.00005 \* 10^18) = **25000000000000**  |
 
 #### Using get_liquidity_params.py Python script
 
@@ -516,7 +516,7 @@ A Python script, located in `scripts/get_liquidity_params.py` in the `smart-cont
 
 ```json
 {
-  "liquidity_rate": 0.01,
+  "liquidity_rate": 0.007,
   "initial_ether_amount": 100.0,
   "initial_token_amount": 2000000,
   "initial_price": 0.00005,
@@ -540,7 +540,7 @@ python3 get_liquidity_params.py --input liquidity_input_params.json --get params
 It should give the following output:
 
 ```sh
-_rInFp: 10995116277
+_rInFp: 7696581394
 _pMinInFp: 27487790
 _numFpBits: 40
 _maxCapBuyInWei: 5000000000000000000
