@@ -68,7 +68,7 @@ module.exports = async (deployer, network, accounts) => {
     MockMedianizer.address,
     KNC.address,
     networkConfig.PermissionlessOrderbookReserveLister.unsupportedTokens,
-    networkConfig.PermissionlessOrderbookReserveLister.maxOrders,
+    networkConfig.PermissionlessOrderbookReserveLister.maxOrdersPerTrade,
     networkConfig.PermissionlessOrderbookReserveLister.minOrderValueUsd,
   );
   await deployer.deploy(WhiteList, admin, KGT.address);

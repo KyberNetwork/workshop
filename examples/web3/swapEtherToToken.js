@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+
+// All code examples in this guide have not been audited and should not be used in production.
+// If so, it is done at your own risk!
+
 /* eslint-disable no-underscore-dangle, no-unused-vars */
 
 const BN = require('bn.js');
@@ -35,7 +39,7 @@ function stdlog(input) {
 }
 
 function tx(result, call) {
-  const logs = (result.logs.length > 0) ? result.logs[0] : { address: null, event: null };
+  const logs = result.logs.length > 0 ? result.logs[0] : { address: null, event: null };
 
   console.log();
   console.log(`   ${call}`);
@@ -45,13 +49,12 @@ function tx(result, call) {
   console.log();
 }
 
-async function sendTx(txObject) {
+async function sendTx(txObject, txTo) {
   const nonce = await web3.eth.getTransactionCount(userWallet);
   const gas = 500 * 1000;
 
   const txData = txObject.encodeABI();
   const txFrom = userWallet;
-  const txTo = txObject._parent.options.address;
 
   const txParams = {
     from: txFrom,
@@ -82,39 +85,63 @@ async function main() {
   stdlog('- START -');
   stdlog(`KyberNetworkProxy (${KyberNetworkProxyAddress})`);
 
-  stdlog(`ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`);
-  stdlog(`KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.methods.balanceOf(userWallet).call())}`);
-  stdlog(`MANA balance of ${userWallet} = ${web3.utils.fromWei(await MANAInstance.methods.balanceOf(userWallet).call())}`);
+  stdlog(
+    `ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`,
+  );
+  stdlog(
+    `KNC balance of ${userWallet} = ${web3.utils.fromWei(
+      await KNCInstance.methods.balanceOf(userWallet).call(),
+    )}`,
+  );
+  stdlog(
+    `MANA balance of ${userWallet} = ${web3.utils.fromWei(
+      await MANAInstance.methods.balanceOf(userWallet).call(),
+    )}`,
+  );
 
-  ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
-    ETH_ADDRESS, // srcToken
-    KNC_ADDRESS, // destToken
-    web3.utils.toWei('1'), // srcQty
-  ).call());
+  ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods
+    .getExpectedRate(
+      ETH_ADDRESS, // srcToken
+      KNC_ADDRESS, // destToken
+      web3.utils.toWei('1'), // srcQty
+    )
+    .call());
 
   txObject = NetworkProxyInstance.methods.swapEtherToToken(
     KNC_ADDRESS, // destToken
     expectedRate, // minConversionRate
   );
-  result = await sendTx(txObject);
+  result = await sendTx(txObject, KyberNetworkProxyAddress);
   tx(result, 'ETH <-> KNC swapEtherToToken()');
 
-  ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods.getExpectedRate(
-    ETH_ADDRESS, // srcToken
-    MANA_ADDRESS, // destToken
-    web3.utils.toWei('1'), // srcQty
-  ).call());
+  ({ expectedRate, slippageRate } = await NetworkProxyInstance.methods
+    .getExpectedRate(
+      ETH_ADDRESS, // srcToken
+      MANA_ADDRESS, // destToken
+      web3.utils.toWei('1'), // srcQty
+    )
+    .call());
 
   txObject = NetworkProxyInstance.methods.swapEtherToToken(
     MANA_ADDRESS, // destToken
     expectedRate, // minConversionRate
   );
-  result = await sendTx(txObject);
+  result = await sendTx(txObject, KyberNetworkProxyAddress);
   tx(result, 'ETH <-> MANA swapEtherToToken()');
 
-  stdlog(`ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`);
-  stdlog(`KNC balance of ${userWallet} = ${web3.utils.fromWei(await KNCInstance.methods.balanceOf(userWallet).call())}`);
-  stdlog(`MANA balance of ${userWallet} = ${web3.utils.fromWei(await MANAInstance.methods.balanceOf(userWallet).call())}`);
+  stdlog(
+    `ETH balance of ${userWallet} = ${web3.utils.fromWei(await web3.eth.getBalance(userWallet))}`,
+  );
+  stdlog(
+    `KNC balance of ${userWallet} = ${web3.utils.fromWei(
+      await KNCInstance.methods.balanceOf(userWallet).call(),
+    )}`,
+  );
+  stdlog(
+    `MANA balance of ${userWallet} = ${web3.utils.fromWei(
+      await MANAInstance.methods.balanceOf(userWallet).call(),
+    )}`,
+  );
 
   stdlog('- END -');
 }

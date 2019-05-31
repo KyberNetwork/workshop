@@ -32,7 +32,8 @@ module.exports = async (deployer, network, accounts) => {
   const operator = accounts[1];
   const baseBuy = [];
   const baseSell = [];
-  const bytes14 = [];
+  const bytes14Buy = [];
+  const bytes14Sell = [];
   const tokenAddresses = [];
 
   // Set the instances
@@ -100,9 +101,10 @@ module.exports = async (deployer, network, accounts) => {
 
   // Setup baseBuy and baseSell for setting the baseRate of the listed tokens
   Object.keys(tokenConfig.FedPriceReserve).forEach((key) => {
-    baseBuy.push(networkConfig.ConversionRates[`${key}BaseBuy`]);
-    baseSell.push(networkConfig.ConversionRates[`${key}BaseSell`]);
-    bytes14.push(networkConfig.ConversionRates.bytes14);
+    baseBuy.push(tokenConfig.FedPriceReserve[key].baseBuy);
+    baseSell.push(tokenConfig.FedPriceReserve[key].baseSell);
+    bytes14Buy.push(tokenConfig.FedPriceReserve[key].bytes14Buy);
+    bytes14Sell.push(tokenConfig.FedPriceReserve[key].bytes14Sell);
   });
 
   // Set the base rate of each token
@@ -111,8 +113,8 @@ module.exports = async (deployer, network, accounts) => {
       tokenAddresses,
       baseBuy,
       baseSell,
-      bytes14,
-      bytes14,
+      bytes14Buy,
+      bytes14Sell,
       blockNumber,
       networkConfig.ConversionRates.indices,
       { from: operator },

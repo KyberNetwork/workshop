@@ -13,11 +13,7 @@
     "quantityFactor": 1
   },
   "SanityRates": {
-    "reasonableDiff": 1000,
-    "KNCSanityRate": 1840144285714286,
-    "OMGSanityRate": 17321646037735852,
-    "SALTSanityRate": 2073480000000000,
-    "ZILSanityRate": 162000000000000
+    "reasonableDiff": 1000
   },
   "WhiteList": {
     "sgdToETHRate": 1984126984126984,
@@ -32,20 +28,11 @@
   },
   "ConversionRates": {
     "validDurationBlock": 1000000000,
-    "bytes14": "0x0000000000000000000000000000",
-    "indices": [0, 0, 0, 0],
-    "KNCBaseBuy": "549000000000000000000",
-    "KNCBaseSell": "1813123931381047",
-    "OMGBaseBuy": "61079439106994400000",
-    "OMGBaseSell": "16400993988000000",
-    "SALTBaseBuy": "493855315770000000000",
-    "SALTBaseSell": "1999052700000000",
-    "ZILBaseBuy": "6117163764686418861883",
-    "ZILBaseSell": "161432777777778"
+    "indices": [0, 0, 0, 0]
   },
   "PermissionlessOrderbookReserveLister": {
     "unsupportedTokens": [],
-    "maxOrders": 32,
+    "maxOrdersPerTrade": 5,
     "minOrderValueUsd": 1000
   },
   "MockMedianizer": {

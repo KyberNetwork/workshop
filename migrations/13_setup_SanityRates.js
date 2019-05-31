@@ -37,7 +37,7 @@ module.exports = async (deployer, network, accounts) => {
   // Set the input arrays
   Object.keys(tokenConfig.FedPriceReserve).forEach((key) => {
     reasonableDiffs.push(networkConfig.SanityRates.reasonableDiff);
-    sanityRates.push(networkConfig.SanityRates[`${key}SanityRate`].toString());
+    sanityRates.push(tokenConfig.FedPriceReserve[key].sanityRate.toString());
     tokens.push(eval(key).address);
   });
 
