@@ -18,13 +18,13 @@
   "WhiteList": {
     "sgdToETHRate": 1984126984126984,
     "defaultCategory": 0,
-    "defaultCap": 5000,
+    "defaultCap": 1000000000000,
     "userCategory": 1,
-    "userCap": 10000,
+    "userCap": 1000000000000,
     "kgtCategory": 2,
     "kgtCap": 0,
     "partnerCategory": 3,
-    "partnerCap": 1000000
+    "partnerCap": 1000000000000
   },
   "ConversionRates": {
     "validDurationBlock": 1000000000,
