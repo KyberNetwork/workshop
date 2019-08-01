@@ -640,10 +640,6 @@ With Ganache running, execute:
 truffle migrate --network development --reset
 ```
 
-## Workshop Exercises
+## Hackathon Bounties
 
-#### 1. Create a smart contract that splits ETH into 3 different tokens. In the constructor, specify the 3 different tokens and percentage distribution of each token.
-
-#### 2. Launch an Automated Price Reserve with your own custom token.
-
-#### 3. Integrate token swaps in your own solidity project.
+For our hackathon bounties, please visit https://kyber.network/hack.
