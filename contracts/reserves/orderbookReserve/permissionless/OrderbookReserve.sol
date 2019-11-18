@@ -1,11 +1,11 @@
 pragma solidity 0.4.18;
 
 
-import "./permissionless/OrderListInterface.sol";
-import "./permissionless/OrderIdManager.sol";
-import "./permissionless/OrderbookReserveInterface.sol";
-import "./Utils2.sol";
-import "./KyberReserveInterface.sol";
+import "./OrderListInterface.sol";
+import "./OrderIdManager.sol";
+import "./OrderbookReserveInterface.sol";
+import "../../../Utils2.sol";
+import "../../../KyberReserveInterface.sol";
 
 
 contract FeeBurnerRateInterface {
@@ -18,7 +18,7 @@ interface MedianizerInterface {
 }
 
 
-contract KyberOrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface, OrderbookReserveInterface {
+contract OrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface, OrderbookReserveInterface {
 
     uint public constant BURN_TO_STAKE_FACTOR = 5;      // stake per order must be xfactor expected burn amount.
     uint public constant MAX_BURN_FEE_BPS = 100;        // 1%
@@ -74,7 +74,7 @@ contract KyberOrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface,
     mapping(address => OrderIdData) public makerOrdersTokenToEth;
     mapping(address => OrderIdData) public makerOrdersEthToToken;
 
-    function KyberOrderbookReserve(
+    function OrderbookReserve(
         ERC20 knc,
         ERC20 reserveToken,
         address burner,
@@ -111,7 +111,7 @@ contract KyberOrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface,
         limits.maxOrdersPerTrade = maxOrdersPerTrade;
 
         require(setMinOrderSizeEth());
-
+    
         require(contracts.kncToken.approve(contracts.feeBurner, (2**255)));
 
         //can only support tokens with decimals() API
@@ -485,7 +485,7 @@ contract KyberOrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface,
     function withdrawKncFee(uint amount) public {
 
         address maker = msg.sender;
-
+        
         require(makerKnc[maker] >= amount);
         require(makerUnlockedKnc(maker) >= amount);
 
@@ -930,7 +930,7 @@ contract KyberOrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface,
         //stakes are returned for unused wei value
         return(takeOrder(maker, userSrc, userPartialSrcAmount, userTakeDstAmount, additionalReleasedWei));
     }
-
+    
     function takeOrder(
         address maker,
         ERC20 userSrc,

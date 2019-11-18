@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const Network = artifacts.require('./KyberNetwork.sol');
 const NetworkProxy = artifacts.require('./KyberNetworkProxy.sol');
-const Reserve = artifacts.require('./KyberReserve.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 const FeeBurner = artifacts.require('./FeeBurner.sol');
 const WhiteList = artifacts.require('./WhiteList.sol');
 const ExpectedRate = artifacts.require('./ExpectedRate.sol');

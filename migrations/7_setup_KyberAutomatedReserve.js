@@ -3,9 +3,9 @@
 const fs = require('fs');
 
 const Network = artifacts.require('./KyberNetwork.sol');
-const LiquidityConversionRates = artifacts.require('./LiquidityConversionRates.sol');
+const LiquidityConversionRates = artifacts.require('./reserves/aprConversionRate/LiquidityConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
-const AutomatedReserve = artifacts.require('./KyberAutomatedReserve.sol');
+const AutomatedReserve = artifacts.require('./reserves/KyberAutomatedReserve.sol');
 
 const MANA = artifacts.require('./mockTokens/Mana.sol');
 

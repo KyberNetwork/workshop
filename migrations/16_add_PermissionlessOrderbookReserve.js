@@ -3,8 +3,8 @@
 const BN = require('bn.js');
 const fs = require('fs');
 
-const OrderbookReserve = artifacts.require('./permissionless/OrderbookReserve.sol');
-const OrderbookReserveLister = artifacts.require('./permissionless/PermissionlessOrderbookReserveLister.sol');
+const OrderbookReserve = artifacts.require('./reserves/KyberOrderbookReserve.sol');
+const OrderbookReserveLister = artifacts.require('./reserves/orderbookReserve/permissionless/PermissionlessOrderbookReserveLister.sol');
 
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const SNT = artifacts.require('./mockTokens/Status.sol');

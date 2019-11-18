@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars, no-eval */
 const fs = require('fs');
 
-const ConversionRates = artifacts.require('./ConversionRates.sol');
-const Reserve = artifacts.require('./KyberReserve.sol');
+const ConversionRates = artifacts.require('./reserves/pfrConversionRates/ConversionRates.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const OMG = artifacts.require('./mockTokens/OmiseGo.sol');

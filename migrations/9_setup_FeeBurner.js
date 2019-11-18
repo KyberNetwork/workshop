@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars, no-eval */
 const fs = require('fs');
 
-const Reserve = artifacts.require('./KyberReserve.sol');
-const AutomatedReserve = artifacts.require('./KyberAutomatedReserve.sol');
-const OrderbookReserve = artifacts.require('./KyberOrderbookReserve.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
+const AutomatedReserve = artifacts.require('./reserves/KyberAutomatedReserve.sol');
+const OrderbookReserve = artifacts.require('./reserves/KyberOrderbookReserve.sol');
 const FeeBurner = artifacts.require('./FeeBurner.sol');
 
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));

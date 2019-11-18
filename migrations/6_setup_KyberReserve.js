@@ -3,9 +3,9 @@
 const fs = require('fs');
 
 const Network = artifacts.require('./KyberNetwork.sol');
-const ConversionRates = artifacts.require('./ConversionRates.sol');
+const ConversionRates = artifacts.require('./reserves/pfrConversionRates/ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
-const Reserve = artifacts.require('./KyberReserve.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const OMG = artifacts.require('./mockTokens/OmiseGo.sol');

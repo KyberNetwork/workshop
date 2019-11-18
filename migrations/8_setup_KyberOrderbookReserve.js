@@ -4,7 +4,7 @@ const BN = require('bn.js');
 const fs = require('fs');
 
 const Network = artifacts.require('./KyberNetwork.sol');
-const OrderbookReserve = artifacts.require('./KyberOrderbookReserve.sol');
+const OrderbookReserve = artifacts.require('./reserves/KyberOrderbookReserve.sol');
 
 const KNC = artifacts.require('./mockTokens/KyberNetworkCrystal.sol');
 const POLY = artifacts.require('./mockTokens/Polymath.sol');

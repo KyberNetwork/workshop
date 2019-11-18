@@ -1,9 +1,9 @@
 pragma solidity 0.4.18;
 
 
-import "./OrderListInterface.sol";
-import "./OrderIdManager.sol";
-import "./OrderbookReserveInterface.sol";
+import "./orderbookReserve/permissionless/OrderListInterface.sol";
+import "./orderbookReserve/permissionless/OrderIdManager.sol";
+import "./orderbookReserve/permissionless/OrderbookReserveInterface.sol";
 import "../Utils2.sol";
 import "../KyberReserveInterface.sol";
 
@@ -18,7 +18,7 @@ interface MedianizerInterface {
 }
 
 
-contract OrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface, OrderbookReserveInterface {
+contract KyberOrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface, OrderbookReserveInterface {
 
     uint public constant BURN_TO_STAKE_FACTOR = 5;      // stake per order must be xfactor expected burn amount.
     uint public constant MAX_BURN_FEE_BPS = 100;        // 1%
@@ -74,7 +74,7 @@ contract OrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface, Orde
     mapping(address => OrderIdData) public makerOrdersTokenToEth;
     mapping(address => OrderIdData) public makerOrdersEthToToken;
 
-    function OrderbookReserve(
+    function KyberOrderbookReserve(
         ERC20 knc,
         ERC20 reserveToken,
         address burner,
