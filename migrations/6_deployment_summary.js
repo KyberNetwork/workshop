@@ -20,8 +20,8 @@ module.exports = (deployer, network, accounts) => {
   console.log('Permissions');
   console.log('==================');
   console.log(`(admin) ${networkConfig.KyberReserve.admin}`);
-  console.log(`(operator) ${networkConfig.KyberReserve.operator}`);
-  console.log(`(alerter) ${networkConfig.KyberReserve.alerter}`);
+  console.log(`(operators) ${networkConfig.KyberReserve.operators}`);
+  console.log(`(alerters) ${networkConfig.KyberReserve.alerters}`);
 
   console.log('\n');
 

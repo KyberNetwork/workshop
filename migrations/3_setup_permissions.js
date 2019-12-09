@@ -20,12 +20,16 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
-  const { alerter, operator } = networkConfig.KyberReserve;
+  const { alerters, operators } = networkConfig.KyberReserve;
 
   // Set the instances
   const ReserveInstance = await Reserve.at(Reserve.address);
 
   // Set permissions of contracts
-  tx(await ReserveInstance.addOperator(operator), 'addOperator()');
-  tx(await ReserveInstance.addAlerter(alerter), 'addAlerter()');
+  for (index in operators) {
+    tx(await ReserveInstance.addOperator(operators[index]), 'addOperator()');
+  }
+  for (index in alerters) {
+    tx(await ReserveInstance.addAlerter(alerters[index]), 'addAlerter()');
+  }
 };

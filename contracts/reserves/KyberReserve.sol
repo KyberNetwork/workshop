@@ -1,16 +1,16 @@
 pragma solidity 0.4.18;
 
 
-import "./ERC20Interface.sol";
-import "./Utils.sol";
-import "./Withdrawable.sol";
-import "./ConversionRatesInterface.sol";
-import "./SanityRatesInterface.sol";
-import "./KyberReserveInterface.sol";
+import "../ERC20Interface.sol";
+import "../Utils.sol";
+import "../Withdrawable.sol";
+import "../ConversionRatesInterface.sol";
+import "../SanityRatesInterface.sol";
+import "../KyberReserveInterface.sol";
 
 
 /// @title Kyber Reserve contract
-contract KyberAutomatedReserve is KyberReserveInterface, Withdrawable, Utils {
+contract KyberReserve is KyberReserveInterface, Withdrawable, Utils {
 
     address public kyberNetwork;
     bool public tradeEnabled;
@@ -19,7 +19,7 @@ contract KyberAutomatedReserve is KyberReserveInterface, Withdrawable, Utils {
     mapping(bytes32=>bool) public approvedWithdrawAddresses; // sha3(token,address)=>bool
     mapping(address=>address) public tokenWallet;
 
-    function KyberAutomatedReserve(address _kyberNetwork, ConversionRatesInterface _ratesContract, address _admin) public {
+    function KyberReserve(address _kyberNetwork, ConversionRatesInterface _ratesContract, address _admin) public {
         require(_admin != address(0));
         require(_ratesContract != address(0));
         require(_kyberNetwork != address(0));

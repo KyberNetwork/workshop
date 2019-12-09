@@ -24,7 +24,8 @@ function tx(result, call) {
 
 module.exports = async (deployer, network, accounts) => {
   const { operator } = networkConfig.KyberReserve;
-  const { withdrawWallet } = networkConfig.KyberReserve;
+  const { withdrawWallets } = networkConfig.KyberReserve;
+  const ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
 
   // Set the instances
   const NetworkInstance = await Network.at(networkConfig.KyberNetwork.address);
@@ -40,13 +41,25 @@ module.exports = async (deployer, network, accounts) => {
     'setContracts()',
   );
 
-  // Add the withdrawal address for the token
-  tx(
-    await ReserveInstance.approveWithdrawAddress(
-      tokenConfig.AutomatedPriceReserve.Token.address,
-      withdrawWallet,
-      true,
-    ),
-    'approveWithdrawAddress()',
-  );
+  for (index in withdrawWallets) {
+    // Add the withdrawal address for the token
+    tx(
+      await ReserveInstance.approveWithdrawAddress(
+        tokenConfig.AutomatedPriceReserve.Token.address,
+        withdrawWallets[index],
+        true,
+      ),
+      'approveWithdrawAddress()',
+    );
+  
+    // Add the withdrawal address for ETH
+    tx(
+      await ReserveInstance.approveWithdrawAddress(
+        ETH_ADDRESS,
+        withdrawWallets[index],
+        true,
+      ),
+      'approveWithdrawAddress()',
+    );
+  }
 };
