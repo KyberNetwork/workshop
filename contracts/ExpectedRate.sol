@@ -55,8 +55,8 @@ contract ExpectedRate is Withdrawable, ExpectedRateInterface, Utils2 {
 
         if (srcQty == 0) srcQty = 1;
 
+        //not needed
         uint bestReserve;
-        uint worstCaseSlippageRate;
 
         if (usePermissionless) {
             (bestReserve, expectedRate) = kyberNetwork.findBestRate(src, dest, srcQty);
@@ -88,9 +88,9 @@ contract ExpectedRate is Withdrawable, ExpectedRateInterface, Utils2 {
             if (checkKncArbitrageRate(expectedRate)) expectedRate = 0;
         }
 
-        require(expectedRate <= MAX_RATE);
+        if (expectedRate > MAX_RATE) return (0, 0);
 
-        worstCaseSlippageRate = ((10000 - worstCaseRateFactorInBps) * expectedRate) / 10000;
+        uint worstCaseSlippageRate = ((10000 - worstCaseRateFactorInBps) * expectedRate) / 10000;
         if (slippageRate >= worstCaseSlippageRate) {
             slippageRate = worstCaseSlippageRate;
         }
@@ -101,7 +101,11 @@ contract ExpectedRate is Withdrawable, ExpectedRateInterface, Utils2 {
     function checkKncArbitrageRate(uint currentKncToEthRate) public view returns(bool) {
         uint converseRate;
         uint slippage;
-	(converseRate, slippage) = getExpectedRate(ETH_TOKEN_ADDRESS, knc, UNIT_QTY_FOR_FEE_BURNER, true);
+    	(converseRate, slippage) = getExpectedRate(ETH_TOKEN_ADDRESS, knc, UNIT_QTY_FOR_FEE_BURNER, true);
+
+        // if returned rate is 0, can't trust this arb test. assume we have arb
+        if(converseRate == 0) return true;
+
         require(converseRate <= MAX_RATE && currentKncToEthRate <= MAX_RATE);
         return ((converseRate * currentKncToEthRate) > (PRECISION ** 2));
     }
@@ -117,6 +121,7 @@ contract ExpectedRate is Withdrawable, ExpectedRateInterface, Utils2 {
         (reserve, rateSrcToEth) = kyberNetwork.searchBestRate(src, ETH_TOKEN_ADDRESS, srcQty, usePermissionless);
 
         uint ethQty = calcDestAmount(src, ETH_TOKEN_ADDRESS, srcQty, rateSrcToEth);
+        if (ethQty == 0) ethQty = 1;
 
         (reserve, rateEthToDest) = kyberNetwork.searchBestRate(ETH_TOKEN_ADDRESS, dest, ethQty, usePermissionless);
         return rateSrcToEth * rateEthToDest / PRECISION;

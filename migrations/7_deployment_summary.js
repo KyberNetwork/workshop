@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars, no-eval */
 const fs = require('fs');
 
-const ConversionRates = artifacts.require('./ConversionRates.sol');
+const ConversionRates = artifacts.require('./reserves/PFR/ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
-const Reserve = artifacts.require('./KyberReserve.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));
@@ -21,8 +21,8 @@ module.exports = (deployer, network, accounts) => {
   console.log('Permissions');
   console.log('==================');
   console.log(`(admin) ${networkConfig.KyberReserve.admin}`);
-  console.log(`(operator) ${networkConfig.KyberReserve.operator}`);
-  console.log(`(alerter) ${networkConfig.KyberReserve.alerter}`);
+  console.log(`(operators) ${networkConfig.KyberReserve.operators}`);
+  console.log(`(alerters) ${networkConfig.KyberReserve.alerters}`);
 
   console.log('\n');
 

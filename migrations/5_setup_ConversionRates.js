@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars, no-eval */
 const fs = require('fs');
 
-const ConversionRates = artifacts.require('./ConversionRates.sol');
-const Reserve = artifacts.require('./KyberReserve.sol');
+const ConversionRates = artifacts.require('./reserves/PFR/ConversionRates.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));

@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars, no-eval */
 const fs = require('fs');
 
-const ConversionRates = artifacts.require('./ConversionRates.sol');
+const ConversionRates = artifacts.require('./reserves/PFR/ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
-const Reserve = artifacts.require('./KyberReserve.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));
@@ -23,7 +23,8 @@ function tx(result, call) {
 }
 
 module.exports = async (deployer, network, accounts) => {
-  const { alerter, operator } = networkConfig.KyberReserve;
+  const { withdrawWallets } = networkConfig.KyberReserve;
+  const ETH_ADDRESS = '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee';
 
   // Set the instances
   const ReserveInstance = await Reserve.at(Reserve.address);
@@ -39,12 +40,26 @@ module.exports = async (deployer, network, accounts) => {
   );
 
   Object.keys(tokenConfig.FedPriceReserve).forEach(async (key) => {
-    // Add the withdrawal address for each token
-    tx(
-      await ReserveInstance.approveWithdrawAddress(
-        tokenConfig.FedPriceReserve[key].address, networkConfig.KyberReserve.withdrawWallet, true,
-      ),
-      'approveWithdrawAddress()',
-    );
+    for (index in withdrawWallets) {
+      // Add the withdrawal address for the token
+      tx(
+        await ReserveInstance.approveWithdrawAddress(
+          tokenConfig.FedPriceReserve[key].address,
+          withdrawWallets[index],
+          true,
+        ),
+        'approveWithdrawAddress()',
+      );
+    
+      // Add the withdrawal address for ETH
+      tx(
+        await ReserveInstance.approveWithdrawAddress(
+          ETH_ADDRESS,
+          withdrawWallets[index],
+          true,
+        ),
+        'approveWithdrawAddress()',
+      );
+    }
   });
 };

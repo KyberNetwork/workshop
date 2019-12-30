@@ -3,9 +3,9 @@
 const BN = require('bn.js');
 const fs = require('fs');
 
-const ConversionRates = artifacts.require('./ConversionRates.sol');
+const ConversionRates = artifacts.require('./reserves/PFR/ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
-const Reserve = artifacts.require('./KyberReserve.sol');
+const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 
 const networkConfig = JSON.parse(fs.readFileSync('../config/network.json', 'utf8'));
 const tokenConfig = JSON.parse(fs.readFileSync('../config/tokens.json', 'utf8'));

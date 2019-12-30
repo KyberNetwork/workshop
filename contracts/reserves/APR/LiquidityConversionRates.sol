@@ -1,12 +1,16 @@
 pragma solidity 0.4.18;
 
-import "./ConversionRatesInterface.sol";
+
+import "../../ConversionRatesInterface.sol";
+import "../../Withdrawable.sol";
+import "../../Utils.sol";
 import "./LiquidityFormula.sol";
-import "./Withdrawable.sol";
-import "./Utils.sol";
 
 
 contract LiquidityConversionRates is ConversionRatesInterface, LiquidityFormula, Withdrawable, Utils {
+
+    uint constant FORMULA_PRECISION_BITS = 40;
+
     ERC20 public token;
     address public reserveContract;
 
@@ -67,15 +71,16 @@ contract LiquidityConversionRates is ConversionRatesInterface, LiquidityFormula,
         uint _maxTokenToEthRateInPrecision,
         uint _minTokenToEthRateInPrecision
     ) public onlyAdmin {
-
-        require(_numFpBits < 256);
-        require(formulaPrecision <= MAX_QTY);
+        require(_numFpBits == FORMULA_PRECISION_BITS); // only used config, but keep in API
+        formulaPrecision = uint(1)<<_numFpBits; // require(formulaPrecision <= MAX_QTY)
         require(_feeInBps < 10000);
         require(_minTokenToEthRateInPrecision < _maxTokenToEthRateInPrecision);
+        require(_minTokenToEthRateInPrecision > 0);
+        require(_rInFp > 0);
+        require(_pMinInFp > 0);
 
         rInFp = _rInFp;
         pMinInFp = _pMinInFp;
-        formulaPrecision = uint(1)<<_numFpBits;
         maxQtyInFp = fromWeiToFp(MAX_QTY);
         numFpBits = _numFpBits;
         maxEthCapBuyInFp = fromWeiToFp(_maxCapBuyInWei);
@@ -261,5 +266,4 @@ contract LiquidityConversionRates is ConversionRatesInterface, LiquidityFormula,
             return uint(val);
         }
     }
-
 }
