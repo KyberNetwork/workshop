@@ -6,16 +6,17 @@ This repository is used as complement to the workshops conducted by Kyber. It ca
 
 ## Useful Links
 
-1. [Introduction to Kyber Network](https://docs.google.com/presentation/d/1dEbLyUSd7tLoMatOw5Km0xw3XofWT0EwDNO7K6BUWRU/)
-2. [Introduction to Reserves](https://docs.google.com/presentation/d/1VOcL0UEEVFUeuR9a8rYNd4N3lW1hgmbXow3WDVcTj5A/)
-3. [KyberDeveloper Portal](http://developer.kyber.network/)
-4. [KyberDeveloper Telegram](https://t.me/KyberDeveloper/)
-5. [Workshop Repository](https://github.com/KyberNetwork/workshop/)
-6. Ropsten ETH Faucets
+1. [Sourcing On-Chain Liquidity for Your DeFi App](https://docs.google.com/presentation/d/1MdkwuSMWA_GctUFYwYEGC9hSHNbOx5ejWMzUazlZSy8/)
+2. [Introduction to Kyber Network](https://docs.google.com/presentation/d/1dEbLyUSd7tLoMatOw5Km0xw3XofWT0EwDNO7K6BUWRU/)
+3. [Introduction to Reserves](https://docs.google.com/presentation/d/1VOcL0UEEVFUeuR9a8rYNd4N3lW1hgmbXow3WDVcTj5A/)
+4. [KyberDeveloper Portal](http://developer.kyber.network/)
+5. [KyberDeveloper Telegram](https://t.me/KyberDeveloper/)
+6. [Workshop Repository](https://github.com/KyberNetwork/workshop/)
+7. Ropsten ETH Faucets
    - https://faucet.kyber.network
    - https://faucet.metamask.io
    - https://faucet.ropsten.be
-7. [Ropsten KyberSwap](https://ropsten.kyber.network/)
+8. [Ropsten KyberSwap](https://ropsten.kyber.network/)
 
 ## What is Kyber?
 

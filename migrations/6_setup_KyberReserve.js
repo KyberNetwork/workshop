@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 const Network = artifacts.require('./KyberNetwork.sol');
-const ConversionRates = artifacts.require('./reserves/pfrConversionRates/ConversionRates.sol');
+const ConversionRates = artifacts.require('./reserves/fprConversionRates/ConversionRates.sol');
 const SanityRates = artifacts.require('./SanityRates.sol');
 const Reserve = artifacts.require('./reserves/KyberReserve.sol');
 
