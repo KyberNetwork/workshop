@@ -25,7 +25,7 @@
   "dependencies": {
     "bn.js": "^5.1.1",
     "compare-versions": "^3.5.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-fetch": "^2.6.0",
     "rlp": "^2.2.4",
     "sha3": "^2.1.1",
