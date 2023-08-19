@@ -49,8 +49,8 @@ contract KyberNetwork is Withdrawable, Utils3, KyberNetworkInterface, Reentrancy
     ExpectedRateInterface public expectedRateContract;
     FeeBurnerInterface    public feeBurnerContract;
     address               public kyberNetworkProxyContract;
-    uint                  public maxGasPriceValue = 50 * 1000 * 1000 * 1000; // 50 gwei
     bool                  public isEnabled = false; // network is enabled
+    uint                  public maxGasPriceValue = 50 * 1000 * 1000 * 1000; // 50 gwei
     mapping(bytes32=>uint) public infoFields; // this is only a UI field for external app.
 
     mapping(address=>address[]) public reservesPerTokenSrc; //reserves supporting token to eth
